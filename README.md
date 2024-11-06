@@ -7,7 +7,9 @@ After having pulled the repo, run the script `settings.R`, after having set `dir
 
 
 # Unidimensional domain data: built-in data
-Script `Ex_1d.R`. Reconstruction of [Didericksen, Kokoszka & Zhang](https://www.semanticscholar.org/paper/Empirical-properties-of-forecasts-with-the-model-Didericksen-Kokoszka/c1fae9f292c2b42beffe4e4146a2bf9ca005f060) experiment: comparison between different algorithm to compute one-step ahead prediction of functional time series (KO, Estimated Kernel (KE), Estimated Kernel Improved (KEI), Naive Predictor (NP), Mean Predictor (MP) and Exact Predictor(EP)) on ad-hoc built in data. Functional AutoRegressive process of order 1 (FAP(1)) are created using different kernels (Gaussian, Identinty, Sloping Plane t, Sloping Plane s) and noises as described in the paper.
+Script `Ex_1d.R`. 
+
+Reconstruction of [Didericksen, Kokoszka & Zhang](https://www.semanticscholar.org/paper/Empirical-properties-of-forecasts-with-the-model-Didericksen-Kokoszka/c1fae9f292c2b42beffe4e4146a2bf9ca005f060) experiment: comparison between different algorithm to compute one-step ahead prediction of functional time series (KO, Estimated Kernel (KE), Estimated Kernel Improved (KEI), Naive Predictor (NP), Mean Predictor (MP) and Exact Predictor(EP)) on ad-hoc built in data. Functional AutoRegressive process of order 1 (FAP(1)) are created using different kernels (Gaussian, Identinty, Sloping Plane t, Sloping Plane s) and noises as described in the paper.
 
 
 # Unidimensional domain data: real-world data
