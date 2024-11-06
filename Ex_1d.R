@@ -4,9 +4,10 @@ cat("\014")
 
 set.seed(23032000)
 #change here
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_prediction"
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series"
 source(paste0(dir_w,"/utils/data/far_1_1d.R"))
 source(paste0(dir_w,"/utils/functions.R"))
+source(paste0(dir_w,"/utils/prediction_error.R"))
 
 ##################################################################
 ################### REPRODUCTION OF KOKOSZKA PAPER ###############
@@ -43,8 +44,8 @@ t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #domain of the
 #data (only four kernels, two norm, three errors implemented)
 {
   #feats of data
-  id_kernel <- "gaussian"   #way of generating data 
-  norm      <- 0.5          #Kernel constant (for the L2 norm of the kernel that has to be <1)
+  id_kernel <- "sp_t"   #way of generating data 
+  norm      <- 0.8          #Kernel constant (for the L2 norm of the kernel that has to be <1)
   id_noise  <- "1"          #error of the FAR(1) process
   
   #grid for the FAR(1)
@@ -70,6 +71,8 @@ Xmean.eval <- rowMeans(X.sample)
 {
   err.dPPC.KO_en <- numeric(N)     #PF:  Kargin-Onatski PPC
   err.dPPC.KO_rn <- numeric(N) 
+  err.dPPC.KO_en2 <- numeric(N)     #PF with extra toll:  Kargin-Onatski PPC
+  err.dPPC.KO_rn2 <- numeric(N) 
   err.dEK_en     <- numeric(N)     #EK:  Kokoszka Estimated Kernel
   err.dEK_rn     <- numeric(N)
   err.dEKI_en    <- numeric(N)     #EKI: Kokoszka Estimated Kernel Improved
@@ -108,17 +111,24 @@ X_pred_plot <- matrix(data=0, nrow=length(t.grid), ncol=traj_to_be_plotted)
     
     
     ## Estimate Psi with different methods
-    KO_algo        <- PPCKO::PPC_KO( X = X.train_no_cent, id_CV = id_CV_ko,dom_dim_s =1, err_ret_s = 0)
-    Psihat.dPPC.KO <- KO_algo$rho_hat   
-    Psihat.dEK     <- EKdiscretized(X=X.train,p=3)
-    Psihat.dEKI    <- EKimproved(X=X.train,p=3)
+    KO_algo  <- PPCKO.local::PPC_KO( X = X.train_no_cent, id_CV = id_CV_ko )
+    KO_algo2 <- PPCKO.local2::PPC_KO( X = X.train_no_cent, id_CV = id_CV_ko)
+    KE_algo  <- KE.local::KE( X = X.train_no_cent, id_ke = "KE")
+    KEI_algo <- KE.local::KE( X = X.train_no_cent, id_ke = "KEI")
+    #Psihat.dPPC.KO <- KO_algo$rho_hat   
+    #Psihat.dEK     <- EKdiscretized(X=X.train,p=3)
+    #Psihat.dEKI    <- EKimproved(X=X.train,p=3)
     
     
     ## Evaluate the error on the test function
     #PF
-    Xhat.dPPC.KO      <- KO_algo$predictions
+    Xhat.dPPC.KO      <- KO_algo$`One-step ahead prediction`
     err.dPPC.KO_en[b] <- En(X.test_no_cent,Xhat.dPPC.KO,t.grid)
     err.dPPC.KO_rn[b] <- Rn(X.test_no_cent,Xhat.dPPC.KO,t.grid)
+    
+    Xhat.dPPC.KO2      <- KO_algo2$`One-step ahead prediction`
+    err.dPPC.KO_en2[b] <- En(X.test_no_cent,Xhat.dPPC.KO2,t.grid)
+    err.dPPC.KO_rn2[b] <- Rn(X.test_no_cent,Xhat.dPPC.KO2,t.grid)
     
     if(b<=traj_to_be_plotted)  #in order to plot this 6 trajectories
     {
@@ -128,12 +138,14 @@ X_pred_plot <- matrix(data=0, nrow=length(t.grid), ncol=traj_to_be_plotted)
     
     
     #EK
-    Xhat.dEK      <- Psihat.dEK %*% X.train[,N] + Xmean.eval
+    #Xhat.dEK      <- Psihat.dEK %*% X.train[,N] + Xmean.eval
+    Xhat.dEK      <- KE_algo$`One step ahead prediction`
     err.dEK_en[b] <- En(X.test_no_cent,Xhat.dEK,t.grid)
     err.dEK_rn[b] <- Rn(X.test_no_cent,Xhat.dEK,t.grid)
     
     #EKI
-    Xhat.dEKI   <- Psihat.dEKI %*% X.train[,N] + Xmean.eval
+    #Xhat.dEKI   <- Psihat.dEKI %*% X.train[,N] + Xmean.eval
+    Xhat.dEKI      <- KEI_algo$`One step ahead prediction`
     err.dEKI_en[b] <- En(X.test_no_cent,Xhat.dEKI,t.grid)
     err.dEKI_rn[b] <- Rn(X.test_no_cent,Xhat.dEKI,t.grid)
     
@@ -157,10 +169,10 @@ X_pred_plot <- matrix(data=0, nrow=length(t.grid), ncol=traj_to_be_plotted)
 ###################
 ## BoxPlot of En ##
 ###################
-err_en <- c(err.naive_en, err.perf_en, err.mean_en, err.dPPC.KO_en, err.dEK_en, err.dEKI_en)
-method <- rep(c("naive","perfect", "mean","PPC-KO", "EK", "EKI"), each=N)
+err_en <- c(err.naive_en, err.perf_en, err.mean_en, err.dEK_en, err.dEKI_en, err.dPPC.KO_en, err.dPPC.KO_en2)
+method <- rep(c("naive","perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2"), each=N)
 En <- data.frame(method, err_en)
-method_order<- c("naive", "perfect", "mean", "PPC-KO", "EK", "EKI")
+method_order<- c("naive", "perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2")
 En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
@@ -190,10 +202,10 @@ pgplot +
 ###################
 ## BoxPlot of Rn ##
 ###################
-err_rn <- c(err.naive_rn, err.perf_rn, err.mean_rn, err.dPPC.KO_rn, err.dEK_rn, err.dEKI_rn)
-method <- rep(c("naive","perfect", "mean","PPC-KO", "EK", "EKI"), each=N)
+err_rn <- c(err.naive_rn, err.perf_rn, err.mean_rn, err.dEK_rn, err.dEKI_rn, err.dPPC.KO_rn, err.dPPC.KO_rn2)
+method <- rep(c("naive","perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2"), each=N)
 Rn <- data.frame(method, err_rn)
-method_order<- c("naive", "perfect", "mean", "PPC-KO", "EK", "EKI")
+method_order<- c("naive", "perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2")
 Rn.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
@@ -231,10 +243,12 @@ for(i in 1:traj_to_be_plotted)
 }
 
 
-
+#mean and sd of simulations errors
 #mean and standard error of the Ens
 mean(err.dPPC.KO_en)
 sqrt(var(err.dPPC.KO_en)/length(err.dPPC.KO_en))
+mean(err.dPPC.KO_en2)
+sqrt(var(err.dPPC.KO_en2)/length(err.dPPC.KO_en2))
 mean(err.dEK_en)
 sqrt(var(err.dEK_en)/length(err.dEK_en))
 mean(err.dEKI_en)
@@ -251,6 +265,8 @@ sqrt(var(err.naive_en)/length(err.naive_en))
 #mean and standard error of the Rns
 mean(err.dPPC.KO_rn)
 sqrt(var(err.dPPC.KO_rn)/length(err.dPPC.KO_rn))
+mean(err.dPPC.KO_rn2)
+sqrt(var(err.dPPC.KO_rn2)/length(err.dPPC.KO_rn2))
 mean(err.dEK_rn)
 sqrt(var(err.dEK_rn)/length(err.dEK_rn))
 mean(err.dEKI_rn)
