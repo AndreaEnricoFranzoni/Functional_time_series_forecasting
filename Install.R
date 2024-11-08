@@ -1,7 +1,8 @@
+#put here the directory of the file install (in this way every load will be coherent with the folders architecture)
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series"
 
 #installing packages
-source(paste0(dir_w,"/utils/requirements.R"))
+source(paste0(dir_w,"requirements.R"))
 
 
 

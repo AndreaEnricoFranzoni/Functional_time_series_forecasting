@@ -3,11 +3,11 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
-#change here
+#change here (is the one in "Install.R", if not already set)
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series"
-source(paste0(dir_w,"/utils/data/far_1_1d.R"))
-source(paste0(dir_w,"/utils/functions.R"))
-source(paste0(dir_w,"/utils/prediction_error.R"))
+source(paste0(dir_w,"/Test_domain1D/Artifical_data/far_1_1d.R"))
+source(paste0(dir_w,"/Test_domain1D/Artifical_data/functions.R"))
+source(paste0(dir_w,"/Test_domain1D/Artifical_data/prediction_error.R"))
 
 ##################################################################
 ################### REPRODUCTION OF KOKOSZKA PAPER ###############
@@ -44,7 +44,7 @@ t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #domain of the
 #data (only four kernels, two norm, three errors implemented)
 {
   #feats of data
-  id_kernel <- "sp_t"   #way of generating data 
+  id_kernel <- "sp_s"   #way of generating data 
   norm      <- 0.8          #Kernel constant (for the L2 norm of the kernel that has to be <1)
   id_noise  <- "1"          #error of the FAR(1) process
   
