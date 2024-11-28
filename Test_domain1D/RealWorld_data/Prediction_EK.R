@@ -14,7 +14,7 @@ name_folder_res_1 = "/KE"
 name_folder_res_2 = "/KEI"
 
 #if you want to save the result 
-save_res = TRUE
+save_res = FALSE
 #where to store the results
 path_stor_res_1 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_1)  
 path_stor_res_2 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_2)  
