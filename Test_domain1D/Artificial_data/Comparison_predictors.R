@@ -3,8 +3,9 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Evaluation of prediction on simulations thorugh boxplots of En and Rn
-###
+
+### Evaluation of prediction on simulations through boxplots of En and Rn
+
 
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
@@ -14,6 +15,7 @@ dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
 path_res_pred = paste0(dir_res,"/results_prediction")
 #if you want to save the result 
 save_res = TRUE
+format = ".jpg"
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_plot_errors"))  
 
@@ -29,57 +31,131 @@ for (pred_met in prediction_method) {
 }
 
 
-###################
-## BoxPlot of En ##
-###################
-err_en <- c(err.naive_en, err.perf_en, err.mean_en, err.dEK_en, err.dEKI_en, err.dPPC.KO_en, err.dPPC.KO_en2)
-method <- rep(c("naive","perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2"), each=N)
+##----- Gaussian Kernel, norm 0.5-----
+kernel_name = "gau_0_5"
+title_err = "Prediction error, gaussian kernel, norm = 0.5"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_gau_0_5$En
+en_EK  = res_KE_gau_0_5$En
+en_EKI = res_KEI_gau_0_5$En
+en_MP  = res_MP_gau_0_5$En
+en_NP  = res_gau_0_5$En
+en_EX  = res_EX_gau_0_5$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
-method_order<- c("naive", "perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2")
+method_order<- prediction_method
 En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
-##grouped boxplot
-quartz()
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot() + ggtitle(name_kernel)
+          geom_boxplot() + ggtitle(title_err)
 pgplot <- pgplot +
-  #scale_y_continuous(limits=c(0,0.1)) +
-  theme_bw() + 
-  labs(x="", y="En", fill = "Prediction method") +
-  #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
-  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
-        axis.text.x = element_text(size=22),
-        axis.title.x = element_text(size=22),
-        axis.text.y = element_text(size=22),
-        axis.title.y = element_text(size=22),
-        legend.title = element_text(size=22),
-        legend.text = element_text(size=22),
-        legend.position="bottom",
-        legend.direction = "horizontal") +
-  guides(fill=guide_legend(nrow=1, byrow=TRUE))
-pgplot + 
-  theme(legend.position="none")
+          theme_bw() + 
+          labs(x="", y="En", fill = "") +
+          theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+                axis.text.x = element_text(size=22),
+                axis.title.x = element_text(size=22),
+                axis.text.y = element_text(size=22),
+                axis.title.y = element_text(size=22),
+                legend.title = element_text(size=22),
+                legend.text = element_text(size=22),
+                legend.position="bottom",
+                legend.direction = "horizontal") +
+        guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
 
 
+## BoxPlot of Rn
+rn_PPC = res_PPC_gau_0_5$Rn
+rn_EK  = res_KE_gau_0_5$Rn
+rn_EKI = res_KEI_gau_0_5$Rn
+rn_MP  = res_MP_gau_0_5$Rn
+rn_NP  = res_gau_0_5$Rn
+rn_EX  = res_EX_gau_0_5$Rn
 
-###################
-## BoxPlot of Rn ##
-###################
-err_rn <- c(err.naive_rn, err.perf_rn, err.mean_rn, err.dEK_rn, err.dEKI_rn, err.dPPC.KO_rn, err.dPPC.KO_rn2)
-method <- rep(c("naive","perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2"), each=N)
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
-method_order<- c("naive", "perfect", "mean", "EK", "EKI", "PPC-KO", "PPC-KO2")
+method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
-##grouped boxplot
-quartz()
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle(name_kernel)
+          geom_boxplot() + ggtitle(title_err)
 pgplot <- pgplot +
-  #scale_y_continuous(limits=c(0,0.1)) +
+          theme_bw() + 
+          labs(x="", y="Rn", fill = "") +
+          theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+                axis.text.x = element_text(size=22),
+                axis.title.x = element_text(size=22),
+                axis.text.y = element_text(size=22),
+                axis.title.y = element_text(size=22),
+                legend.title = element_text(size=22),
+                legend.text = element_text(size=22),
+                legend.position="bottom",
+                legend.direction = "horizontal") +
+        guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Gaussian Kernel, norm 0.8-----
+kernel_name = "gau_0_8"
+title_err = "Prediction error, gaussian kernel, norm = 0.8"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_gau_0_8$En
+en_EK  = res_KE_gau_0_8$En
+en_EKI = res_KEI_gau_0_8$En
+en_MP  = res_MP_gau_0_8$En
+en_NP  = res_gau_0_8$En
+en_EX  = res_EX_gau_0_8$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
   theme_bw() + 
-  labs(x="", y="Rn", fill = "Prediction method") +
-  #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
+  labs(x="", y="En", fill = "") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -90,5 +166,644 @@ pgplot <- pgplot +
         legend.position="bottom",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
-pgplot + 
-  theme(legend.position="none")
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_gau_0_8$Rn
+rn_EK  = res_KE_gau_0_8$Rn
+rn_EKI = res_KEI_gau_0_8$Rn
+rn_MP  = res_MP_gau_0_8$Rn
+rn_NP  = res_gau_0_8$Rn
+rn_EX  = res_EX_gau_0_8$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+##----- Identity Kernel, norm 0.5-----
+kernel_name = "id_0_5"
+title_err = "Prediction error, identity kernel, norm = 0.8"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_id_0_5$En
+en_EK  = res_KE_id_0_5$En
+en_EKI = res_KEI_id_0_5$En
+en_MP  = res_MP_id_0_5$En
+en_NP  = res_id_0_5$En
+en_EX  = res_EX_id_0_5$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+          geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_id_0_5$Rn
+rn_EK  = res_KE_id_0_5$Rn
+rn_EKI = res_KEI_id_0_5$Rn
+rn_MP  = res_MP_id_0_5$Rn
+rn_NP  = res_id_0_5$Rn
+rn_EX  = res_EX_id_0_5$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Identity Kernel, norm 0.8-----
+kernel_name = "id_0_8"
+title_err = "Prediction error, identity kernel, norm = 0.5"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_id_0_8$En
+en_EK  = res_KE_id_0_8$En
+en_EKI = res_KEI_id_0_8$En
+en_MP  = res_MP_id_0_8$En
+en_NP  = res_id_0_8$En
+en_EX  = res_EX_id_0_8$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_id_0_8$Rn
+rn_EK  = res_KE_id_0_8$Rn
+rn_EKI = res_KEI_id_0_8$Rn
+rn_MP  = res_MP_id_0_8$Rn
+rn_NP  = res_id_0_8$Rn
+rn_EX  = res_EX_id_0_8$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Slopint plane t Kernel, norm 0.5-----
+kernel_name = "spt_0_5"
+title_err = "Prediction error, slopint plane t kernel, norm = 0.5"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_spt_0_5$En
+en_EK  = res_KE_spt_0_5$En
+en_EKI = res_KEI_spt_0_5$En
+en_MP  = res_MP_spt_0_5$En
+en_NP  = res_spt_0_5$En
+en_EX  = res_EX_spt_0_5$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_spt_0_5$Rn
+rn_EK  = res_KE_spt_0_5$Rn
+rn_EKI = res_KEI_spt_0_5$Rn
+rn_MP  = res_MP_spt_0_5$Rn
+rn_NP  = res_spt_0_5$Rn
+rn_EX  = res_EX_spt_0_5$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Slopint plane t Kernel, norm 0.8-----
+kernel_name = "spt_0_8"
+title_err = "Prediction error, slopint plane t kernel, norm = 0.8"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_spt_0_8$En
+en_EK  = res_KE_spt_0_8$En
+en_EKI = res_KEI_spt_0_8$En
+en_MP  = res_MP_spt_0_8$En
+en_NP  = res_spt_0_8$En
+en_EX  = res_EX_spt_0_8$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_spt_0_8$Rn
+rn_EK  = res_KE_spt_0_8$Rn
+rn_EKI = res_KEI_spt_0_8$Rn
+rn_MP  = res_MP_spt_0_8$Rn
+rn_NP  = res_spt_0_8$Rn
+rn_EX  = res_EX_spt_0_8$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Sloping plane s Kernel, norm 0.5-----
+kernel_name = "sps_0_5"
+title_err = "Prediction error, slopint plane s kernel, norm = 0.5"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_sps_0_5$En
+en_EK  = res_KE_sps_0_5$En
+en_EKI = res_KEI_sps_0_5$En
+en_MP  = res_MP_sps_0_5$En
+en_NP  = res_sps_0_5$En
+en_EX  = res_EX_sps_0_5$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_sps_0_5$Rn
+rn_EK  = res_KE_sps_0_5$Rn
+rn_EKI = res_KEI_sps_0_5$Rn
+rn_MP  = res_MP_sps_0_5$Rn
+rn_NP  = res_sps_0_5$Rn
+rn_EX  = res_EX_sps_0_5$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+
+
+
+##----- Sloping plane s Kernel, norm 0.5-----
+kernel_name = "sps_0_8"
+title_err = "Prediction error, slopint plane s kernel, norm = 0.8"
+
+
+## BoxPlot of En
+en_PPC = res_PPC_sps_0_8$En
+en_EK  = res_KE_sps_0_5$En
+en_EKI = res_KEI_sps_0_8$En
+en_MP  = res_MP_sps_0_8$En
+en_NP  = res_sps_0_8$En
+en_EX  = res_EX_sps_0_8$En
+
+N = length(en_PPC)
+
+
+err_en <- c(en_PPC, en_EK, en_EKI, en_MP, en_NP, en_EX)
+method <- rep(prediction_method, each=N)
+En <- data.frame(method, err_en)
+method_order<- prediction_method
+En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="En", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("en_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}
+
+
+## BoxPlot of Rn
+rn_PPC = res_PPC_sps_0_8$Rn
+rn_EK  = res_KE_sps_0_8$Rn
+rn_EKI = res_KEI_sps_0_8$Rn
+rn_MP  = res_MP_sps_0_8$Rn
+rn_NP  = res_sps_0_8$Rn
+rn_EX  = res_EX_sps_0_8$Rn
+
+N = length(rn_PPC)
+
+
+err_rn <- c(rn_PPC, rn_EK, rn_EKI, rn_MP, rn_NP, rn_EX)
+method <- rep(prediction_method, each=N)
+Rn <- data.frame(method, err_rn)
+method_order<- prediction_method
+Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
+
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot() + ggtitle(title_err)
+pgplot <- pgplot +
+  theme_bw() + 
+  labs(x="", y="Rn", fill = "") +
+  theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
+        axis.text.x = element_text(size=22),
+        axis.title.x = element_text(size=22),
+        axis.text.y = element_text(size=22),
+        axis.title.y = element_text(size=22),
+        legend.title = element_text(size=22),
+        legend.text = element_text(size=22),
+        legend.position="bottom",
+        legend.direction = "horizontal") +
+  guides(fill=guide_legend(nrow=1, byrow=TRUE))
+pgplot + theme(legend.position="none")
+
+if(save_res){
+  ggsave(filename = paste0(paste0("rn_",kernel_name),format),
+         plot = pgplot,
+         device = NULL,
+         path = path_stor_res,
+         scale = 1,
+         width = NA,
+         height = NA,
+         dpi = 300)}

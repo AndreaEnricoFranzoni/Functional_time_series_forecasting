@@ -79,7 +79,59 @@ for (i in 1:length(number_threads_OMP)) {
   cat("\r", message)
 }
 
-# times for 499 time instants are in minutes: TO BE CONVERTED
+
+
+# some are in minutes: TO BE CONVERTED
+# to be converted: do it manually
+times_CV[[1]]
+times_CV[[1]][1,4]   = times_CV[[1]][1,4]*60
+times_CV[[1]][2,3:4] = times_CV[[1]][2,3:4]*60
+times_CV[[1]][3,2:4] = times_CV[[1]][3,2:4]*60
+times_CV[[1]][4,1:4] = times_CV[[1]][4,1:4]*60
+
+times_CV[[2]]
+times_CV[[2]][1,4]   = times_CV[[2]][1,4]*60
+times_CV[[2]][2,4]   = times_CV[[2]][2,4]*60
+times_CV[[2]][3,3:4] = times_CV[[2]][3,3:4]*60
+times_CV[[2]][4,2:4] = times_CV[[2]][4,2:4]*60
+
+times_CV[[3]]
+times_CV[[3]][1,4]   = times_CV[[3]][1,4]*60
+times_CV[[3]][2,4]   = times_CV[[3]][2,4]*60
+times_CV[[3]][3,3:4] = times_CV[[3]][3,3:4]*60
+times_CV[[3]][4,2:4] = times_CV[[3]][4,2:4]*60
+
+times_CV[[4]]
+times_CV[[4]][1,4]   = times_CV[[4]][1,4]*60
+times_CV[[4]][2,4]   = times_CV[[4]][2,4]*60
+times_CV[[4]][3,3:4] = times_CV[[4]][3,3:4]*60
+times_CV[[4]][4,2:4] = times_CV[[4]][4,2:4]*60
+
+times_CV[[5]]
+times_CV[[5]][1,4]   = times_CV[[5]][1,4]*60
+times_CV[[5]][2,4]   = times_CV[[5]][2,4]*60
+times_CV[[5]][3,3:4] = times_CV[[5]][3,3:4]*60
+times_CV[[5]][4,3:4] = times_CV[[5]][4,3:4]*60
+
+times_CV[[6]]
+times_CV[[6]][1,4]   = times_CV[[6]][1,4]*60
+times_CV[[6]][2,4]   = times_CV[[6]][2,4]*60
+times_CV[[6]][3,3:4] = times_CV[[6]][3,3:4]*60
+times_CV[[6]][4,3:4] = times_CV[[6]][4,3:4]*60
+
+times_CV[[7]]
+times_CV[[7]][1,4]   = times_CV[[7]][1,4]*60
+times_CV[[7]][2,4]   = times_CV[[7]][2,4]*60
+times_CV[[7]][3,3:4] = times_CV[[7]][3,3:4]*60
+times_CV[[7]][4,3:4] = times_CV[[7]][4,3:4]*60
+
+times_CV[[8]]
+times_CV[[8]][1,4]   = times_CV[[8]][1,4]*60
+times_CV[[8]][2,4]   = times_CV[[8]][2,4]*60
+times_CV[[8]][3,3:4] = times_CV[[8]][3,3:4]*60
+times_CV[[8]][4,3:4] = times_CV[[8]][4,3:4]*60
+
+
 if(save_res){
   save(times_CV, file = paste0(path_store_res,"/times_CV.Rdata"))
 }
