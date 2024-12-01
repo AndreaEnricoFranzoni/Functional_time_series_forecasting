@@ -2,23 +2,18 @@ rm(list=ls())
 graphics.off()
 cat("\014")
 
-set.seed(23032000)
 
-#change here 
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series"
-source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/far_1_1d.R"))
-source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/functions.R"))
-source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R"))
+library(PPCKO)
+
+data("data_1d")
 
 
 
 ## Data parameters 
 left_ex            <- 0                                           #left extreme of the domain of the functional data
 right_ex           <- 1                                           #right extreme of the domain of the functional data
-dim_grid           <- 200                                         #number of discrete evaluations of the functional statistical units
-n                  <- 100                                         #time instants of the functional time series
-burnin             <- 50                                          #burnin iterations for FAR(1)
-N                  <- n - burnin                                  #instants that will actually be taken into account  
+dim_grid           <- dim(data_1d)[1]                             #number of discrete evaluations of the functional statistical units
+n                  <- dim(data_1d)[2]                             #time instants of the functional time series
 t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #grid for the discrete evaluation of the statistical units
 
 #PPCKO parameters 
@@ -37,30 +32,10 @@ t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #grid for the 
   id_rem_nan    <- NULL
 }
 
-#data (only four kernels, two norm, three errors implemented)
-{
-  #feats of data
-  id_kernel <- "sp_s"       #way of generating data ("gaussian", "identity", "sp_t" and "sp_s" kernel available)
-  norm      <- 0.8          #norm of the Kernel (that has to be <1)
-  id_noise  <- "1"          #error of the FAR(1) process ("1", "2" or "3")
-  
-  #grid for the kernel for generating FAR(1)
-  s.grid <- seq(0,1, length.out=dim_grid)
-  grid   <- expand.grid(t.grid, s.grid)
-}
-
-# ----- data generation -----
-proc = feat_far_1_process(id_kernel,norm)
-id_kernel   <- proc$kernel
-a           <- proc$constant
-name_kernel <- proc$name
-
-##Simulate a stationary FAR(1) process according to a specific kernel
-X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 
 
-test_1d_hp = PPCKO::KO_check_hps(X.sample)
-test1d     = PPCKO::PPC_KO(X = X.sample,
+test_1d_hp = KO_check_hps(data_1d)
+test1d     = PPC_KO(X = data_1d,
                            id_CV = id_CV_ko,
                            alpha = alpha,
                            k = k,
@@ -74,4 +49,4 @@ test1d     = PPCKO::PPC_KO(X = X.sample,
                            err_ret = 1)
 
 
-PPCKO::KO_show_results(test1d,test_1d_hp)
+KO_show_results(test1d,test_1d_hp)
