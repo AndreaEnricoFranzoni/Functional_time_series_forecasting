@@ -16,17 +16,29 @@ Run the script `Install.R`. If problems arises in installing `PPCKO` and `KePred
 
 
 # Tutorials
-In the folders
+In the folders `Test_domain1D` and `Test_domain2D`, it is possible to find `tutorial_1d` and `tutorial_2d` for `PPCKO`.
 
 
-# Unidimensional domain data: built-in data
-Script `Ex_1d.R`. 
-
-Reconstruction of [Didericksen, Kokoszka & Zhang](https://www.semanticscholar.org/paper/Empirical-properties-of-forecasts-with-the-model-Didericksen-Kokoszka/c1fae9f292c2b42beffe4e4146a2bf9ca005f060) experiment: comparison between different algorithm to compute one-step ahead prediction of functional time series (KO, Estimated Kernel (KE), Estimated Kernel Improved (KEI), Naive Predictor (NP), Mean Predictor (MP) and Exact Predictor(EP)) on ad-hoc built in data. Functional AutoRegressive process of order 1 (FAP(1)) are created using different kernels (Gaussian, Identinty, Sloping Plane t, Sloping Plane s) and noises as described in the paper.
+# Computational performance
+Folder `Test_CompTime`: **PACS**. Tests can be found, for the computational time for no-cv version and cv-version, parallel vs sequential.
 
 
-# Unidimensional domain data: real-world data
+# Time series of curves
+Folder `Test_domain1D`: **PACS**. 
 
-# Bidimensional domain data: built-in data
+- Subfolder `Artificial_data`: reproduction of the Didericksen, Kokoszka and Zhang [experiment](https://ideas.repec.org/cgi-bin/refs.cgi) is conducted, for demostrating the goodness of PPC KO. 
 
-# Bidimensional domain data: real-world data
+- Subfolder `RealWorld_data`: the same comparison is conducted on data from [MGS](https://www.mercatoelettrico.org/en/), to make PPC KO facing a more challenging scenario of not-ad-hoc data.
+
+
+# Time series of surfaces
+Folder `Test_domain2D`: **PACS**. 
+
+- Subfolder `Artificial_data`: comparison of predictors on 2D domain synthetic data, built as in [Ajroldi et Al.](https://arxiv.org/abs/2207.13656).
+
+- Subfolder `RealWorld_data`: PPC KO is used to make predictions on Black Sea sea-level altitude. Forecasting of time serie, delta-1 lag, delta-2 lag for reconstructing the prediction.
+
+# WIP
+- Creating time series that do not satisfy PPC KO assumptions, to see how it behaves
+- Applying PPC KO to "Campi Flegrei" data, as for BS data.
+
