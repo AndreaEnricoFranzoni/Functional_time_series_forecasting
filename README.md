@@ -20,7 +20,9 @@ In the folders `Test_domain1D` and `Test_domain2D`, it is possible to find `tuto
 
 
 # Computational performance
-Folder `Test_CompTime`: **PACS**. Tests can be found, for the computational time for no-cv version and cv-version, parallel vs sequential.
+Folder `Test_CompTime`: **PACS**. 
+
+Tests can be found, for the computational time for no-cv version and cv-version, parallel vs sequential.
 
 
 # Time series of curves
