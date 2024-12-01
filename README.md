@@ -1,9 +1,22 @@
 # Forecasting of Time Series of Functional Data
-The repo contains tests for the goodness of one-step ahead prediction of functional time series (with unidimensional and bidimensional domain) using the [Kargin-Onatski algorithm](https://core.ac.uk/download/pdf/82625156.pdf), implemented [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator).
+The repo contains tests on forecasting of functional time series. 
+
+Attention has been paid to [Kargin-Onatski algorithm](https://core.ac.uk/download/pdf/82625156.pdf) algorithm, and its implementation in the package `PPCKO`, reference [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator). Tests for its predictive power and its performance have been performed. 
+
+Specifically, the PPC KO predictor has been compared to other predictors. Forecasting has been performed for unidmensional and bidimensional domain data, synthetic and real-world.
+
+> ❗️ **N.B.:** the folder with the **PACS** flag contains the tests reported in the report for the Advanced Programming for Scientific Computing (a.k.a. PACS) at Politecnico di Milano, a.y. 2023/2024.
+
+> ❗️ **N.B.:** the package `KePredictor` contains [here](https://github.com/AndreaEnricoFranzoni/KePredictor) a very simple, trivial, not efficient implementation of the Kernel Estimate (KE) and Kernel Estimate Improved (KEI) predictor, performing cv as in `PPCKO`, to compare coherently their predictive performances.
+
 
 
 # Installation
-After having pulled the repo, run the script `settings.R`, after having set `dir_w` to your working directory (in this way every needed package, function and/or dataset will be available).
+Run the script `Install.R`. If problems arises in installing `PPCKO` and `KePredictor`, could be helpful looking , respectively, [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator) and [here](https://github.com/AndreaEnricoFranzoni/KePredictor).
+
+
+# Tutorials
+In the folders
 
 
 # Unidimensional domain data: built-in data
