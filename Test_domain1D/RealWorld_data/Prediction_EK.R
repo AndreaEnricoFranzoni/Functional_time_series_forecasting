@@ -65,8 +65,8 @@ for (i in 1:total_predictions) {
   
   train_set = offers_dataset[,1:(i-2+first_prediction)]
 
-  KE_predictor  = KE_1d( X = train_set, k_vec = k_vec)
-  KEI_predictor = KEI_1d(X = train_set, k_vec = k_vec)
+  KE_predictor  = KE( X = train_set, k_vec = k_vec)
+  KEI_predictor = KEI(X = train_set, k_vec = k_vec)
   
   
   prediction_KE_offer[[i]]  = list(Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
@@ -96,8 +96,8 @@ for (i in 1:total_predictions) {
   
   train_set = demands_dataset[,1:(i-2+first_prediction)]
   
-  KE_predictor  = KE_1d( X = train_set, k_vec = k_vec)
-  KEI_predictor = KEI_1d(X = train_set, k_vec = k_vec)
+  KE_predictor  = KE( X = train_set, k_vec = k_vec)
+  KEI_predictor = KEI(X = train_set, k_vec = k_vec)
   
   
   prediction_KE_demand[[i]]  = list(Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )

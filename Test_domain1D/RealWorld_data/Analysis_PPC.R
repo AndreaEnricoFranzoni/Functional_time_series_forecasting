@@ -3,15 +3,16 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Analysis of results of PPC forecasting
-###
+### Analysis of results of PPC forecasting: looking for dynamic of reg param alpha
+###                                         number of PPCs retained k,
+###                                         explanatory power boxplot, for both offer and demand  
 
 #if you want to save the result in a folder 
 save_res = TRUE
 
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
-source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/open_window.R"))
+
 
 #in which folder the result of the PPC predictions are
 path_res_pred = paste0(dir_res,"/results_prediction/PPC")
@@ -73,7 +74,7 @@ alpha_count <- data.frame(
   Count = count_alpha
 )
 
-open_window()
+
 barchart_alpha = ggplot(alpha_count, aes(x = Alpha, y = Count)) +
                  geom_bar(stat = "identity", fill = "steelblue") +
                  labs(title = "PPC Prediction offer", x = "Regularization parameter", y = "Count") +
@@ -82,7 +83,7 @@ print(barchart_alpha)
 
 if(save_res){
   title = "count_alpha_PPC_offer"
-  ggsave(filename = paste0(title,".pdf"),
+  ggsave(filename = paste0(title,format_file),
          plot = barchart_alpha,
          device = NULL,
          path = path_stor_res,
@@ -113,7 +114,7 @@ alpha_count <- data.frame(
   Count = count_alpha
 )
 
-open_window()
+
 barchart_alpha = ggplot(alpha_count, aes(x = Alpha, y = Count)) +
                  geom_bar(stat = "identity", fill = "steelblue") +
                  labs(title = "PPC Prediction demand", x = "Regularization parameter", y = "Count") +
@@ -122,7 +123,7 @@ print(barchart_alpha)
 
 if(save_res){
   title = "count_alpha_PPC_demand"
-  ggsave(filename = paste0(title,".pdf"),
+  ggsave(filename = paste0(title,format_file),
          plot = barchart_alpha,
          device = NULL,
          path = path_stor_res,
@@ -154,7 +155,7 @@ k_count <- data.frame(
   Count = count_k[1:max_ind]
 )
 
-open_window()
+
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(title = "PPC Prediction offer", x = "Number PPCs retained", y = "Count") +
@@ -163,7 +164,7 @@ print(barchart_k)
 
 if(save_res){
   title = "count_k_PPC_offer"
-  ggsave(filename = paste0(title,".pdf"),
+  ggsave(filename = paste0(title,format_file),
          plot = barchart_k,
          device = NULL,
          path = path_stor_res,
@@ -195,7 +196,7 @@ k_count <- data.frame(
   Count = count_k[1:max_ind]
 )
 
-open_window()
+
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(title = "PPC Prediction demand", x = "Number PPCs retained", y = "Count") +
@@ -204,7 +205,7 @@ print(barchart_k)
 
 if(save_res){
   title = "count_k_PPC_demand"
-  ggsave(filename = paste0(title,".pdf"),
+  ggsave(filename = paste0(title,format_file),
          plot = barchart_k,
          device = NULL,
          path = path_stor_res,

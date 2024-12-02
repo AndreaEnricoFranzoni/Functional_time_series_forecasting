@@ -11,7 +11,7 @@ save_res = TRUE
 
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
-source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/open_window.R"))
+
 
 
 #in which folder the result of the prediction are

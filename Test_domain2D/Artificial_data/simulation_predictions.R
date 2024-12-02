@@ -168,62 +168,6 @@ if(save_res){
 
 
 
-## -----PPC small toll-----
-
-#store results
-err_PPC_st_en <- numeric(tot_iter)
-err_PPC_st_rn <- numeric(tot_iter)
-pred_PPC_st   <- lapply(1:tot_iter,function(x) NULL)
-
-string_message = "
-                  PPC small toll prediction "
-for (i in 1:tot_iter) {
-  
-  dim_ts = training_set_sz[i]
-  train  = Xt_wrapped[,1:dim_ts]
-  valid  = Xt_wrapped[,dim_ts+1]
-  
-  predictor = PPC_KO_2d( X = train,
-                         id_CV = id_CV,
-                         alpha = alpha,
-                         k = k,
-                         threshold_ppc = threshold_ppc,
-                         alpha_vec = alpha_vec,
-                         k_vec = k_vec,
-                         toll = 1e-7,
-                         disc_ev_x1 = x1.grid,
-                         num_disc_ev_x1 = dim_grid_x1,
-                         disc_ev_x2 = x2.grid,
-                         num_disc_ev_x2 = dim_grid_x2,
-                         left_extreme_x1 = left_ex_x1,
-                         right_extreme_x1 = right_ex_x1,
-                         left_extreme_x2 = left_ex_x2,
-                         right_extreme_x2 = right_ex_x2,
-                         err_ret = 0)
-  
-  prediction = predictor$`One-step ahead prediction`
-  pred_PPC_st[[i]] = list(Prediction = prediction, Alpha = predictor$Alpha, N_PPCs = predictor$`Number of PPCs retained`, Exp_Pow = predictor$`Explanatory power PPCs` )
-  
-  
-  err_PPC_st_en[i] = sqrt(MLmetrics::MSE(prediction,valid))
-  err_PPC_st_rn[i] = MLmetrics::MAE(prediction,valid)
-  
-  message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , i, tot_iter)
-  setTxtProgressBar(txtProgressBar(min = 1, max = tot_iter, style = 3), i)
-  cat("\r", message)
-}
-
-if(save_res){
-  save(pred_PPC_st,   file = paste0(path_store_res,"/PPC/PPC_st_pred.Rdata"))
-  save(err_PPC_st_en, file = paste0(path_store_res,"/PPC/PPC_st_en.Rdata"))
-  save(err_PPC_st_rn, file = paste0(path_store_res,"/PPC/PPC_st_rn.Rdata"))
-}
-
-
-
-
-
 ##-----KE-----
 
 #store results
