@@ -3,7 +3,7 @@ graphics.off()
 cat("\014")
 
 library(PPCKO)
-library(KePredictor)
+
 
 set.seed(23032000)
 
@@ -14,6 +14,9 @@ dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_
 {
   source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/far_1_2d.R"))
   source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/ex_pred.R"))
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/EstimatedKernel_predictor_2D.R"))       #load parameter to generate data according to a strategy
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/KE_cv_2D.R"))       #load parameter to generate data according to a strategy
+  
 }
 
 # if storing results
@@ -85,6 +88,30 @@ dim_grid_x2 <- 20
   
   # data wrapped as matrix
   Xt_wrapped = PPCKO::data_2d_wrapper_from_list(Xt)
+  
+  
+  # plot the first three realizations
+  color = "seagreen3"
+  
+  maxx = max(sapply(Xt, max))+0.5
+  minn = min(sapply(Xt, min))-0.5
+  
+  library(latex2exp)
+  quartz()
+  par(mfrow=c(1,3))
+  line=-9
+  persp(x=x1.grid, y=x2.grid, z=Xt[[1]], col=color,
+        xlab=TeX(""),ylab="",zlab="",zlim=c(minn,maxx),
+        ticktype='detailed')
+  title(TeX("$X_{1}$"), outer = FALSE,line=line)
+  persp(x=x1.grid, y=x2.grid, z=Xt[[2]], col=color,
+        xlab="",ylab="",zlab="",zlim=c(minn,maxx),
+        ticktype='detailed')
+  title(TeX("$X_{2}$"), outer = FALSE,line=line)
+  persp(x=x1.grid, y=x2.grid, z=Xt[[3]], col=color,
+        xlab="",ylab="",zlab="",zlim=c(minn,maxx),
+        ticktype='detailed')
+  title(TeX("$X_{3}$"), outer = FALSE,line=line)
 }
 
 
@@ -107,6 +134,11 @@ dim_grid_x2 <- 20
   num_disc_ev_x2   <- dim_grid_x2
   err_ret          <- 0
   id_rem_nan       <- NULL
+}
+
+
+{
+  p_vector = c(2,3,4,5,6)
 }
 
 
@@ -179,14 +211,23 @@ string_message = "
 for (i in 1:tot_iter) {
   
   dim_ts = training_set_sz[i]
-  train  = Xt_wrapped[,1:dim_ts]
+  train  = Xt[1:dim_ts]
   valid  = Xt_wrapped[,dim_ts+1]
   
-  predictor  = KE(train,min_size_ts = dim_ts-2)
-  prediction = predictor$`One-step ahead prediction`
+  predictor = cv_EK_2d( X = train,
+                        grid_eval1 = x1.grid,
+                        grid_eval2 = x2.grid,
+                        p_vector = p_vector,
+                        improved = FALSE)
+  
+  
+  prediction = predictor$prediction
   
   err_EK_en[i] = sqrt(MLmetrics::MSE(prediction,valid))
   err_EK_rn[i] = MLmetrics::MAE(prediction,valid)
+  
+  
+  
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -216,11 +257,17 @@ string_message = "
 for (i in 1:tot_iter) {
   
   dim_ts = training_set_sz[i]
-  train = Xt_wrapped[,1:dim_ts]
-  valid = Xt_wrapped[,dim_ts+1]
+  train  = Xt[1:dim_ts]
+  valid  = Xt_wrapped[,dim_ts+1]
   
-  predictor  = KEI(train,min_size_ts = dim_ts-2)
-  prediction = predictor$`One-step ahead prediction`
+  predictor = cv_EK_2d( X = train,
+                        grid_eval1 = x1.grid,
+                        grid_eval2 = x2.grid,
+                        p_vector = p_vector,
+                        improved = TRUE)
+  
+  
+  prediction = predictor$prediction
   
   err_EKI_en[i] = sqrt(MLmetrics::MSE(prediction,valid))
   err_EKI_rn[i] = MLmetrics::MAE(prediction,valid)

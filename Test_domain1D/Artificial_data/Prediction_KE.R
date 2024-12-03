@@ -30,7 +30,6 @@ path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)
 
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/EstimatedKernel_predictor.R"))       #load parameter to generate data according to a strategy
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/KE_cv.R"))       #load parameter to generate data according to a strategy
-
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/far_1_1d.R"))         #load functions to generate the FAR(1) process
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R")) #load functions to evaluate the prediction error
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       #load parameter to generate data according to a strategy
