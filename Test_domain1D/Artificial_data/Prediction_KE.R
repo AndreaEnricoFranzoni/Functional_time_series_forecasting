@@ -107,7 +107,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_gau_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_gau_0_5_en[b] = En(prediction_KE_gau_0_5[[b]]$Prediction,valid_set,t.grid)
@@ -164,7 +164,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_gau_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_gau_0_8_en[b] = En(prediction_KE_gau_0_8[[b]]$Prediction,valid_set,t.grid)
@@ -220,7 +220,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_id_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_id_0_5_en[b] = En(prediction_KE_id_0_5[[b]]$Prediction,valid_set,t.grid)
@@ -277,7 +277,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_id_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_id_0_8_en[b] = En(prediction_KE_id_0_8[[b]]$Prediction,valid_set,t.grid)
@@ -334,7 +334,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_spt_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_spt_0_5_en[b] = En(prediction_KE_spt_0_5[[b]]$Prediction,valid_set,t.grid)
@@ -391,7 +391,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_spt_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_spt_0_8_en[b] = En(prediction_KE_spt_0_8[[b]]$Prediction,valid_set,t.grid)
@@ -447,7 +447,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_sps_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_sps_0_5_en[b] = En(prediction_KE_sps_0_5[[b]]$Prediction,valid_set,t.grid)
@@ -504,7 +504,7 @@ for (b in 1:N) {
   predictor = cv_EK( X = train_set,
                      grid_eval = t.grid,
                      p_vector = p_vector,
-                     improved = TRUE)
+                     improved = FALSE)
   
   prediction_KE_sps_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
   err_KE_sps_0_8_en[b] = En(prediction_KE_sps_0_8[[b]]$Prediction,valid_set,t.grid)
