@@ -226,7 +226,7 @@ if(save_res){
 
 ##----- Identity Kernel, norm 0.5-----
 kernel_name = "id_0_5"
-title_err = "Prediction error, identity kernel, norm = 0.8"
+title_err = "Prediction error, identity kernel, norm = 0.5"
 
 
 ## BoxPlot of En
@@ -324,7 +324,7 @@ if(save_res){
 
 ##----- Identity Kernel, norm 0.8-----
 kernel_name = "id_0_8"
-title_err = "Prediction error, identity kernel, norm = 0.5"
+title_err = "Prediction error, identity kernel, norm = 0.8"
 
 
 ## BoxPlot of En

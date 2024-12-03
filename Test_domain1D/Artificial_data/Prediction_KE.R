@@ -3,7 +3,6 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-library(KePredictor)
 
 #change here
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
@@ -12,7 +11,7 @@ name_folder_res = "/KE"
 
 
 #if you want to save the result 
-save_res = FALSE
+save_res = TRUE
 #where to store the results
 path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)              
 #saving results
@@ -29,6 +28,8 @@ path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)
 
 
 
+source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/EstimatedKernel_predictor.R"))       #load parameter to generate data according to a strategy
+source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/KE_cv.R"))       #load parameter to generate data according to a strategy
 
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/far_1_1d.R"))         #load functions to generate the FAR(1) process
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R")) #load functions to evaluate the prediction error
@@ -36,6 +37,8 @@ source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       
 path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)              #where to store the results
 
 
+# parameters for doing CV for EK
+p_vector = c(2,3,4,5,6)
 
 
 #storing prediction
@@ -101,11 +104,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
-
-  prediction_KE_gau_0_5[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance`  )
-  err_KE_gau_0_5_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_gau_0_5_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
+  
+  prediction_KE_gau_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_gau_0_5_en[b] = En(prediction_KE_gau_0_5[[b]]$Prediction,valid_set,t.grid)
+  err_KE_gau_0_5_rn[b] = Rn(prediction_KE_gau_0_5[[b]]$Prediction,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -155,12 +161,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  prediction_KE_gau_0_8[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_gau_0_8_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_gau_0_8_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  
+  prediction_KE_gau_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_gau_0_8_en[b] = En(prediction_KE_gau_0_8[[b]]$Prediction,valid_set,t.grid)
+  err_KE_gau_0_8_rn[b] = Rn(prediction_KE_gau_0_8[[b]]$Prediction,valid_set,t.grid)
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
   ") , b, N)
@@ -209,11 +217,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  prediction_KE_id_0_5[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance`  )
-  err_KE_id_0_5_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_id_0_5_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_id_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_id_0_5_en[b] = En(prediction_KE_id_0_5[[b]]$Prediction,valid_set,t.grid)
+  err_KE_id_0_5_rn[b] = Rn(prediction_KE_id_0_5[[b]]$Prediction,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -263,11 +274,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  prediction_KE_id_0_8[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_id_0_8_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_id_0_8_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_id_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_id_0_8_en[b] = En(prediction_KE_id_0_8[[b]]$Prediction,valid_set,t.grid)
+  err_KE_id_0_8_rn[b] = Rn(prediction_KE_id_0_8[[b]]$Prediction,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -317,12 +331,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-
-  prediction_KE_spt_0_5[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_spt_0_5_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_spt_0_5_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_spt_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_spt_0_5_en[b] = En(prediction_KE_spt_0_5[[b]]$Prediction,valid_set,t.grid)
+  err_KE_spt_0_5_rn[b] = Rn(prediction_KE_spt_0_5[[b]]$Prediction,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -372,12 +388,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  
-  prediction_KE_spt_0_8[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_spt_0_8_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_spt_0_8_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_spt_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_spt_0_8_en[b] = En(prediction_KE_spt_0_8[[b]]$Prediction,valid_set,t.grid)
+  err_KE_spt_0_8_rn[b] = Rn(prediction_KE_spt_0_8[[b]]$Prediction,valid_set,t.grid)
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
   ") , b, N)
@@ -426,12 +444,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  
-  prediction_KE_sps_0_5[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_sps_0_5_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_sps_0_5_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_sps_0_5[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_sps_0_5_en[b] = En(prediction_KE_sps_0_5[[b]]$Prediction,valid_set,t.grid)
+  err_KE_sps_0_5_rn[b] = Rn(prediction_KE_sps_0_5[[b]]$Prediction,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -481,12 +501,14 @@ for (b in 1:N) {
   train_set = X.sample[,1:(N-1+b)]
   valid_set = X.sample[,N+b] 
   
-  KE_predictor = KE( X = train_set)
+  predictor = cv_EK( X = train_set,
+                     grid_eval = t.grid,
+                     p_vector = p_vector,
+                     improved = TRUE)
   
-  
-  prediction_KE_sps_0_8[[b]] = list( Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  err_KE_sps_0_8_en[b] = En(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_KE_sps_0_8_rn[b] = Rn(KE_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_KE_sps_0_8[[b]] = list(Prediction = predictor$prediction, N_comp = predictor$N_PCs_ret)
+  err_KE_sps_0_8_en[b] = En(prediction_KE_sps_0_8[[b]]$Prediction,valid_set,t.grid)
+  err_KE_sps_0_8_rn[b] = Rn(prediction_KE_sps_0_8[[b]]$Prediction,valid_set,t.grid)
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
   ") , b, N)
