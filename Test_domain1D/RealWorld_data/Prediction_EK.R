@@ -3,7 +3,7 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-library(KePredictor)
+
 
 
 #change here
@@ -14,12 +14,15 @@ name_folder_res_1 = "/KE"
 name_folder_res_2 = "/KEI"
 
 #if you want to save the result 
-save_res = FALSE
+save_res = TRUE
 #where to store the results
 path_stor_res_1 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_1)  
 path_stor_res_2 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_2)  
 
 load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120_data.Rdata"))
+source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/EstimatedKernel_predictor.R"))       #load parameter to generate data according to a strategy
+source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/KE_cv.R"))       #load parameter to generate data according to a strategy
+
 
 
 # ----- data -----
@@ -64,13 +67,20 @@ string_message = "
 for (i in 1:total_predictions) {
   
   train_set = offers_dataset[,1:(i-2+first_prediction)]
-
-  KE_predictor  = KE( X = train_set, k_vec = k_vec)
-  KEI_predictor = KEI(X = train_set, k_vec = k_vec)
   
   
-  prediction_KE_offer[[i]]  = list(Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  prediction_KEI_offer[[i]] = list(Prediction = KEI_predictor$`One-step ahead prediction`, N_comp = KEI_predictor$`Number of Components retained`, Exp_Pow = KEI_predictor$`Explained variance` ) 
+  predictor_ke = cv_EK( X = train_set,
+                      grid_eval = x_grid,
+                      p_vector = k_vec,
+                      improved = FALSE)
+  
+  predictor_kei = cv_EK( X = train_set,
+                         grid_eval = x_grid,
+                         p_vector = k_vec,
+                         improved = TRUE)
+  
+  prediction_KE_offer[[i]]  = list(Prediction = predictor_ke$prediction,  N_comp = predictor_ke$N_PCs_ret )
+  prediction_KEI_offer[[i]] = list(Prediction = predictor_kei$prediction, N_comp = predictor_kei$N_PCs_ret ) 
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
@@ -96,12 +106,18 @@ for (i in 1:total_predictions) {
   
   train_set = demands_dataset[,1:(i-2+first_prediction)]
   
-  KE_predictor  = KE( X = train_set, k_vec = k_vec)
-  KEI_predictor = KEI(X = train_set, k_vec = k_vec)
+  predictor_ke = cv_EK( X = train_set,
+                        grid_eval = x_grid,
+                        p_vector = k_vec,
+                        improved = FALSE)
   
+  predictor_kei = cv_EK( X = train_set,
+                         grid_eval = x_grid,
+                         p_vector = k_vec,
+                         improved = TRUE)
   
-  prediction_KE_demand[[i]]  = list(Prediction = KE_predictor$`One-step ahead prediction`, N_comp = KE_predictor$`Number of Components retained`, Exp_Pow = KE_predictor$`Explained variance` )
-  prediction_KEI_demand[[i]] = list(Prediction = KEI_predictor$`One-step ahead prediction`, N_comp = KEI_predictor$`Number of Components retained`, Exp_Pow = KEI_predictor$`Explained variance` ) 
+  prediction_KE_demand[[i]]  = list(Prediction = predictor_ke$prediction,  N_comp = predictor_ke$N_PCs_ret )
+  prediction_KEI_demand[[i]] = list(Prediction = predictor_kei$prediction, N_comp = predictor_kei$N_PCs_ret ) 
   
   
   

@@ -3,8 +3,10 @@ graphics.off()
 cat("\014")
 
 
+# library for the package
 library(PPCKO)
 
+# upload the data from the package
 data("data_1d")
 
 
@@ -18,7 +20,7 @@ t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #grid for the 
 
 #PPCKO parameters 
 {
-  id_CV_ko      <- "CV_alpha"           #Ko algorithm
+  id_CV_ko      <- "CV_alpha"     #Ko algorithm
   alpha         <- 0.1            #regularization parameter
   k             <- 0              #if a nnumber of PPCs has to be retained
   threshold_ppc <- 0.95           #threshold of explanatory power that has to be explained through PPCs
@@ -33,8 +35,11 @@ t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #grid for the 
 }
 
 
-
+# obtain pointwise pvalues fo ADF 
 test_1d_hp = KO_check_hps(data_1d)
+
+
+# PPC KO
 test1d     = PPC_KO(X = data_1d,
                            id_CV = id_CV_ko,
                            alpha = alpha,
@@ -48,5 +53,5 @@ test1d     = PPC_KO(X = data_1d,
                            right_extreme = right_ex,
                            err_ret = 1)
 
-
+# plot results
 KO_show_results(test1d,test_1d_hp)

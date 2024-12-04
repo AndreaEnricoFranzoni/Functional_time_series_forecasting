@@ -92,8 +92,8 @@ if(save_res){
          device = NULL,
          path = path_stor_res,
          scale = 1,
-         width = NA,
-         height = NA,
+         width = 10,
+         height = 5,
          dpi = 300)}
 
 #Rn
@@ -157,8 +157,8 @@ if(save_res){
          device = NULL,
          path = path_stor_res,
          scale = 1,
-         width = NA,
-         height = NA,
+         width = 10,
+         height = 5,
          dpi = 300)}
 
 
@@ -225,7 +225,7 @@ if(save_res){
          device = NULL,
          path = path_stor_res,
          scale = 1,
-         width = NA,
+         width = 10,
          height = 5,
          dpi = 300)}
 
@@ -290,6 +290,6 @@ if(save_res){
          device = NULL,
          path = path_stor_res,
          scale = 1,
-         width = NA,
+         width = 10,
          height = 5,
          dpi = 300)}
