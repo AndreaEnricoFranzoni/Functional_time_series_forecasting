@@ -77,9 +77,9 @@ save(Xt_mouth_diff_2,file=paste0(path_res_mouth,"/BS_mouth_diff_2.Rdata"))
 
 
 ## -----data in the center of the Black Sea------
-idx_lat_center = which(lat==42.5):which(lat==44.5)  # lat: 42.5 : 44.5
+idx_lat_center = which(lat==41.5):which(lat==42.5)  # lat: 41.5 : 42.5
 lat_center     = lat[idx_lat_center]
-idx_lon_center = which(lon==36):which(lon==38)      # lon: 36   : 38
+idx_lon_center = which(lon==28):which(lon==31)      # lon: 38   : 31
 lon_center     = lon[idx_lon_center]
 
 Xt_center = list()
@@ -91,7 +91,7 @@ for (i in 1:length(Xt)) {
 save(Xt_center,lon_center,lat_center,file=paste0(path_res_center,"/BS_center.Rdata"))
 
 
-# takes differences for mouth
+# takes differences for center
 n_tot = length(Xt_center)
 n_points = dim(Xt_center[[1]])[1]*dim(Xt_center[[1]])[2]
 Xt_mat_center = matrix(NA, nrow=n_points, ncol=n_tot)

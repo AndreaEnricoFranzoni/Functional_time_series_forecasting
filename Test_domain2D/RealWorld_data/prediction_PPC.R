@@ -99,7 +99,7 @@ string_message = "
 for (i in 1:days_to_be_pred) {
   
   # parto 
-  train_set = Xt_mouth_diff_1[,(i - 1 + idx_first_day_first_train):(i - 1 + idx_first_day_first_train + window_train_set)]
+  train_set = Xt_mouth_diff_1[,(i - 2 + idx_first_day_first_train):(i - 2 + idx_first_day_first_train + window_train_set)]
   
   predictor = PPC_KO_2d( X = train_set,
                          id_CV = id_CV_,
@@ -112,6 +112,8 @@ for (i in 1:days_to_be_pred) {
                          right_extreme_x1 = max(lon_mouth),
                          left_extreme_x2 = min(lat_mouth),
                          right_extreme_x2 = max(lat_mouth))
+  
+  predizione = predictor$`One-step ahead prediction`
   
   
   prediction_PPC_mouth_diff_1[[i]] = list(Prediction = predictor$`One-step ahead prediction`, Alpha = predictor$Alpha, N_PPCs = predictor$`Number of PPCs retained`, Exp_Pow = predictor$`Explanatory power PPCs` )

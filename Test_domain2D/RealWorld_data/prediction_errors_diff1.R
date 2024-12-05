@@ -1,0 +1,99 @@
+rm(list=ls())
+graphics.off()
+cat("\014")
+
+set.seed(23032000)
+
+
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+dir_res = paste0(dir_w,"/Test_domain2D/RealWorld_data/results")
+
+
+#in which folder the result of the prediction are
+path_res_pred = paste0(dir_res,"/results_prediction")
+#if you want to save the result 
+save_res = TRUE
+
+#where to store the results
+path_stor_res = paste0(paste0(dir_res,"/results_prediction_errors"))  
+
+prediction_method = c("PPC", "MP", "NP")
+
+for (pred_met in prediction_method) {
+  
+  files <- list.files(path = paste0(path_res_pred,paste0("/",pred_met)), full.names = TRUE)
+  for (file in files) {
+    load(file)
+  }
+  
+}
+
+
+#where the data are
+dir_data = paste0(dir_w,"/Test_domain2D/RealWorld_data/data")
+path_data_mouth = paste0(dir_data,"/mouth")
+path_data_center = paste0(dir_data,"/center")
+
+
+
+#load the dataset
+load(paste0(dir_data,"/BS.Rdata"))
+#load data for mouth zone
+load(paste0(path_data_mouth,"/BS_mouth.Rdata"))
+load(paste0(path_data_mouth,"/BS_mouth_diff_1.Rdata"))
+
+#load data for center zone
+load(paste0(path_data_center,"/BS_center.Rdata"))
+load(paste0(path_data_center,"/BS_center_diff_1.Rdata"))
+
+
+
+
+first_day_first_train = "20170101"
+idx_first_day_first_train = which(dates==first_day_first_train)
+window_train_set = 99
+days_to_be_pred = 1000
+
+N = days_to_be_pred
+
+## ----- mouth -----
+# errors on mouth predictions
+#store errors
+{
+  en_PPC_mouth_diff_1 = numeric(N)
+  rn_PPC_mouth_diff_1 = numeric(N)
+  
+  en_MP_mouth_diff_1 = numeric(N)
+  rn_MP_mouth_diff_1 = numeric(N)
+  
+  en_NP_mouth_diff_1 = numeric(N)
+  rn_NP_mouth_diff_1 = numeric(N)
+}
+
+
+
+mouth = data_2d_wrapper_from_list(Xt_mouth)
+
+for(i in 1:days_to_be_pred){
+  
+  test_set = Xt_mouth_diff_1[,i + idx_first_day_first_train + window_train_set]
+  
+  pred_ppc = as.vector(prediction_PPC_mouth_diff_1[[i]]$Prediction)
+  pred_mp  = prediction_MP_mouth_diff_1[[i]]$Prediction
+  pred_np  = prediction_NP_mouth_diff_1[[i]]$Prediction
+  
+  en_PPC_mouth_diff_1[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
+  rn_PPC_mouth_diff_1[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_MP_mouth_diff_1[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
+  rn_MP_mouth_diff_1[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
+  
+  en_NP_mouth_diff_1[i]  = sqrt(MLmetrics::MSE(pred_np[!is.na(test_set) & !is.na(pred_np)], test_set[!is.na(test_set) & !is.na(pred_np)]))
+  rn_NP_mouth_diff_1[i]  = MLmetrics::MAE(pred_np[!is.na(test_set) & !is.na(pred_np)], test_set[!is.na(test_set) & !is.na(pred_np)])
+  
+}
+
+err_PPC_mouth_diff_1 = list(en = en_PPC_mouth_diff_1, rn = rn_PPC_mouth_diff_1 )
+err_MP_mouth_diff_1   = list(en = en_MP_mouth_diff_1 , rn = rn_MP_mouth_diff_1 )
+err_NP_mouth_diff_1   = list(en = en_NP_mouth_diff_1 , rn = rn_NP_mouth_diff_1 )
+subfolder = "/mouth/diff_1"
