@@ -68,8 +68,10 @@ alpha_count <- data.frame(
   Count = count_alpha
 )
 
+alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
-barchart_alpha = ggplot(alpha_count, aes(x = Alpha, y = Count)) +
+
+barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(title = "PPC Prediction", x = "Regularization parameter", y = "Times alpha being used") +
   theme_minimal()
