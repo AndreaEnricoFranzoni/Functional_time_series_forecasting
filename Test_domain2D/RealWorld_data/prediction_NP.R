@@ -200,7 +200,7 @@ for (i in 1:days_to_be_pred) {
   # parto 
   train_set = Xt_center_diff_2[,(i - 3 + idx_first_day_first_train):(i - 3 + idx_first_day_first_train + window_train_set)]
   
-  predictor = rowMeans(train_set) + 2*center[,(i - 1 + idx_first_day_first_train + window_train_set)] - center[,(i - 2 + idx_first_day_first_train + window_train_set)]
+  predictor = train_set[,window_train_set] + 2*center[,(i - 1 + idx_first_day_first_train + window_train_set)] - center[,(i - 2 + idx_first_day_first_train + window_train_set)]
   
 
   
