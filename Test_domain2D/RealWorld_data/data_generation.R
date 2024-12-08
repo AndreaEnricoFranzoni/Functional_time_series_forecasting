@@ -19,6 +19,58 @@ path_res_center = paste0(dir_data,"/data/center")
 
 
 
+# plot one day
+path_store_plt = dir_data
+
+first_day_first_train = "20170101"
+idx_first_day_first_train = which(dates==first_day_first_train)
+
+data <- expand.grid(x = lon, y = lat)
+plot_instant = Xt[[idx_first_day_first_train]]
+
+data$z <- plot_instant[cbind(
+  match(data1$x, lon),  
+  match(data1$y, lat))]
+
+data_cmp = plot_instant[which(!is.na(plot_instant))]
+
+min_v = min(data_cmp )
+max_v = max(data_cmp )
+
+plot_pv <- ggplot(data, aes(x = x, y = y)) +
+  geom_raster(aes(fill = z), na.rm = TRUE) +
+  #stat_contour(aes(z = z, color = ..level..), binwidth = 0.1, na.rm = TRUE) +
+  scale_fill_viridis_c( na.value = "white", option = "viridis", name = "SLA [m]", limits = c(-0.2,0.2) ) +
+  scale_color_viridis_c(option = "viridis", name = "SLA [m[", limits = c(-0.2,0.2) ) +
+  labs( title = "Black Sea SLA on 01-01-2017", x = "Longitude [°]", y = "Latitude [°]") +
+  guides( fill = guide_legend(override.aes = list(color = NA)), color = guide_legend() ) +
+  theme_minimal() +
+  theme( plot.title = element_text(face = "bold",hjust = 0.5),
+         legend.position = "right",
+         legend.key.size = unit(0.5, "cm"),
+         legend.title = element_text(size = 10),
+         legend.text = element_text(size = 7),
+         legend.box = "vertical",
+         legend.box.background = element_rect(fill = "white", color = "black"),
+         legend.margin = margin(5, 5, 5, 5), 
+         panel.grid.major = element_blank(),  
+         panel.grid.minor = element_blank() ) +
+  geom_hline( yintercept = seq(min(data$y), max(data$y), by = (quantile(data$y)[2]-quantile(data$y)[1])/2), linetype = "solid", color = "grey", size = 0.1 ) +  
+  geom_vline( xintercept = seq(min(data$x), max(data$x), by = (quantile(data$x)[2]-quantile(data$x)[1])/2), linetype = "solid", color = "grey", size = 0.1 )  
+
+
+print(plot_pv)
+
+ggsave(filename = "BS_SLA_01_01_17.jpg",
+       plot = plot_pv,
+       device = NULL,
+       path = path_store_plt,
+       scale = 1,
+       width = 14,
+       height = 10,
+       dpi = 300)
+
+
 
 ##-----data around Dnepr and Danubio mouth-----
 idx_lat_mouth = which(lat==44):which(lat==max(lat)) # lat: 44 : 46.875
