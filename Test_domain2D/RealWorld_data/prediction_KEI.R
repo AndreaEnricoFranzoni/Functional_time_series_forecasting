@@ -3,7 +3,6 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
-library(PPCKO)
 
 #change here
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
@@ -23,7 +22,7 @@ dir_err = paste0(dir_w,"/Test_domain2D/RealWorld_data/results/results_prediction
 path_store_res = paste0(dir_res,folder_res)
 
 
-#load functions to use KE
+#load functions to use KEI
 source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/EstimatedKernel_predictor_2D.R"))       #load parameter to generate data according to a strategy
 source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/KE_cv_2D.R"))       #load parameter to generate data according to a strategy
 

@@ -17,7 +17,7 @@ format = ".jpg"
 #where to store the results
 path_save_res = paste0(paste0(dir_res,"/results_plot_errors"))  
 
-prediction_method = c("PPC", "MP", "NP")
+prediction_method = c("PPC", "KE", "KEI", "MP", "NP", "CC")
 
 # load the prediction errors
 for (zone in c("center","mouth")) {
@@ -43,35 +43,57 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_mouth$en
 rn_ppc = err_PPC_mouth$rn
 
+en_ke = err_KE_mouth$en
+rn_ke = err_KE_mouth$rn
+
+en_kei = err_KEI_mouth$en
+rn_kei = err_KEI_mouth$rn
+
 en_mp = err_MP_mouth$en
 rn_mp = err_MP_mouth$rn
 
 en_np = err_NP_mouth$en
 rn_np = err_NP_mouth$rn
 
+en_cc = err_CC_mouth$en
+rn_cc = err_CC_mouth$rn
+
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -112,7 +134,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
@@ -167,35 +189,56 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_mouth_diff_1$en
 rn_ppc = err_PPC_mouth_diff_1$rn
 
+en_ke = err_KE_mouth_diff_1$en
+rn_ke = err_KE_mouth_diff_1$rn
+
+en_kei = err_KEI_mouth_diff_1$en
+rn_kei = err_KEI_mouth_diff_1$rn
+
 en_mp = err_MP_mouth_diff_1$en
 rn_mp = err_MP_mouth_diff_1$rn
 
 en_np = err_NP_mouth_diff_1$en
 rn_np = err_NP_mouth_diff_1$rn
 
+en_cc = err_CC_mouth_diff_1$en
+rn_cc = err_CC_mouth_diff_1$rn
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -236,7 +279,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
@@ -289,35 +332,56 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_mouth_diff_2$en
 rn_ppc = err_PPC_mouth_diff_2$rn
 
+en_ke = err_KE_mouth_diff_2$en
+rn_ke = err_KE_mouth_diff_2$rn
+
+en_kei = err_KEI_mouth_diff_2$en
+rn_kei = err_KEI_mouth_diff_2$rn
+
 en_mp = err_MP_mouth_diff_2$en
 rn_mp = err_MP_mouth_diff_2$rn
 
 en_np = err_NP_mouth_diff_2$en
 rn_np = err_NP_mouth_diff_2$rn
 
+en_cc = err_CC_mouth_diff_2$en
+rn_cc = err_CC_mouth_diff_2$rn
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -358,7 +422,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
@@ -414,35 +478,56 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_center$en
 rn_ppc = err_PPC_center$rn
 
+en_ke = err_KE_center$en
+rn_ke = err_KE_center$rn
+
+en_kei = err_KEI_center$en
+rn_kei = err_KEI_center$rn
+
 en_mp = err_MP_center$en
 rn_mp = err_MP_center$rn
 
 en_np = err_NP_center$en
 rn_np = err_NP_center$rn
 
+en_cc = err_CC_center$en
+rn_cc = err_CC_center$rn
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -483,7 +568,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
@@ -538,35 +623,56 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_center_diff_1$en
 rn_ppc = err_PPC_center_diff_1$rn
 
+en_ke = err_KE_center_diff_1$en
+rn_ke = err_KE_center_diff_1$rn
+
+en_kei = err_KEI_center_diff_1$en
+rn_kei = err_KEI_center_diff_1$rn
+
 en_mp = err_MP_center_diff_1$en
 rn_mp = err_MP_center_diff_1$rn
 
 en_np = err_NP_center_diff_1$en
 rn_np = err_NP_center_diff_1$rn
 
+en_cc = err_CC_center_diff_1$en
+rn_cc = err_CC_center_diff_1$rn
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -607,7 +713,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
@@ -660,35 +766,56 @@ title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 en_ppc = err_PPC_center_diff_2$en
 rn_ppc = err_PPC_center_diff_2$rn
 
+en_ke = err_KE_center_diff_2$en
+rn_ke = err_KE_center_diff_2$rn
+
+en_kei = err_KEI_center_diff_2$en
+rn_kei = err_KEI_center_diff_2$rn
+
 en_mp = err_MP_center_diff_2$en
 rn_mp = err_MP_center_diff_2$rn
 
 en_np = err_NP_center_diff_2$en
 rn_np = err_NP_center_diff_2$rn
 
+en_cc = err_CC_center_diff_2$en
+rn_cc = err_CC_center_diff_2$rn
+
 N = length(en_ppc)
 
 {
   mean(en_ppc)
   sd(en_ppc)
+  mean(en_ke)
+  sd(en_ke)
+  mean(en_kei)
+  sd(en_kei)
   mean(en_mp)
   sd(en_mp)
   mean(en_np)
   sd(en_np)
+  mean(en_cc)
+  sd(en_cc)
 }
 
 {
   mean(rn_ppc)
   sd(rn_ppc)
+  mean(rn_ke)
+  sd(rn_ke)
+  mean(rn_kei)
+  sd(rn_kei)
   mean(rn_mp)
   sd(rn_mp)
   mean(rn_np)
   sd(rn_np)
+  mean(rn_cc)
+  sd(rn_cc)
 }
 
 
 
-err_en <- c(en_ppc,en_mp,en_np)
+err_en <- c(en_ppc,en_ke,en_kei,en_mp,en_np,en_cc)
 method <- rep(prediction_method, each=N)
 En <- data.frame(method, err_en)
 method_order<- prediction_method
@@ -729,7 +856,7 @@ if(save_res){
 
 
 
-err_rn <- c(rn_ppc,rn_mp,rn_np)
+err_rn <- c(rn_ppc,rn_ke,rn_kei,rn_mp,rn_np,rn_cc)
 method <- rep(prediction_method, each=N)
 Rn <- data.frame(method, err_rn)
 method_order<- prediction_method
