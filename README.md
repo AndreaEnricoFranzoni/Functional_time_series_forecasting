@@ -1,4 +1,4 @@
-# Forecasting of Time Series of Functional Data
+# Functional Time Series Forecasting
 The repo contains tests conducted on functional time series forecasting, 
 
 Particular focus has been put on [Kargin-Onatski algorithm](https://core.ac.uk/download/pdf/82625156.pdf) algorithm, and its implementation in the package `PPCKO`, [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator). Tests for its predictive power and its performance have been performed. 
