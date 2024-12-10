@@ -141,7 +141,7 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
   geom_boxplot()  + ggtitle(title)
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
@@ -178,7 +178,7 @@ if(save_res){
 
 ## ---- mouth, diff 1 ----
 
-title = paste0("Prediction error, mouth, diff 1")
+title = paste0("Prediction error, mouth, one differentiation")
 zone = "mouth"
 agg_dt = "_diff_1"
 
@@ -246,7 +246,7 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, one step differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, mouth, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -286,8 +286,8 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, one step differentiation")
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot()  + ggtitle("Prediction error, mouth, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -389,7 +389,7 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, two steps differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, mouth, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -429,8 +429,8 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, two steps differentiation")
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot()  + ggtitle("Prediction error, mouth, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -575,7 +575,7 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
   geom_boxplot()  + ggtitle(title)
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
@@ -680,7 +680,7 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, one step differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, center, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -720,8 +720,8 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, one step differentiation")
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot()  + ggtitle("Prediction error, center, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -823,7 +823,7 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, two steps differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, center, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
@@ -863,8 +863,8 @@ method_order<- prediction_method
 Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
-pgplot <- ggplot(Rn.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, two steps differentiation")
+pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
+  geom_boxplot()  + ggtitle("Prediction error, center, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
