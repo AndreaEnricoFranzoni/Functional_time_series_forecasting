@@ -11,7 +11,9 @@ Specifically, the PPC KO predictor has been compared to other predictors. Foreca
 
 
 # Installation
-Run the script `Install.R`. If problems arise installing `PPCKO` check [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator).
+Run the script `Install.R`. Eventually check `Requirements.R` packages installation. In all the scripts, `dir_w` contains the path of the local copy of the repo.
+
+If problems arise installing `PPCKO`, check [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator).
 
 # Tutorials
 Folder `Tutorial`: **PACS**.
