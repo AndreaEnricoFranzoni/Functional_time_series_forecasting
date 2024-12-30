@@ -17,7 +17,7 @@ save_res = TRUE
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_prediction_errors"))  
 
-prediction_method = c("PPC", "MP", "NP")
+prediction_method = c("PPC", "PPC_gen","MP", "NP")
 
 for (pred_met in prediction_method) {
   
@@ -69,6 +69,15 @@ mouth = data_2d_wrapper_from_list(Xt_mouth)
   rn_PPC_mouth_diff_2 = numeric(N)
   
   
+  en_PPC_gen_mouth = numeric(N)
+  en_PPC_gen_mouth_diff_1 = numeric(N)
+  en_PPC_gen_mouth_diff_2 = numeric(N)
+  
+  rn_PPC_gen_mouth = numeric(N)
+  rn_PPC_gen_mouth_diff_1 = numeric(N)
+  rn_PPC_gen_mouth_diff_2 = numeric(N)
+  
+  
   en_MP_mouth = numeric(N)
   en_MP_mouth_diff_1 = numeric(N)
   en_MP_mouth_diff_2 = numeric(N)
@@ -97,11 +106,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on direct prediction
   pred_ppc = as.vector(prediction_PPC_mouth[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_mouth[[i]]$Prediction)
   pred_mp  = prediction_MP_mouth[[i]]$Prediction
   pred_np  = prediction_NP_mouth[[i]]$Prediction
   
   en_PPC_mouth[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_mouth[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_mouth[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_mouth[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_mouth[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_mouth[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -112,11 +125,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on diff1
   pred_ppc = as.vector(prediction_PPC_mouth_diff_1[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_mouth_diff_1[[i]]$Prediction)
   pred_mp  = prediction_MP_mouth_diff_1[[i]]$Prediction
   pred_np  = prediction_NP_mouth_diff_1[[i]]$Prediction
   
   en_PPC_mouth_diff_1[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_mouth_diff_1[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_mouth_diff_1[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_mouth_diff_1[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_mouth_diff_1[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_mouth_diff_1[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -127,11 +144,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on diff2
   pred_ppc = as.vector(prediction_PPC_mouth_diff_2[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_mouth_diff_2[[i]]$Prediction)
   pred_mp  = prediction_MP_mouth_diff_2[[i]]$Prediction
   pred_np  = prediction_NP_mouth_diff_2[[i]]$Prediction
   
   en_PPC_mouth_diff_2[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_mouth_diff_2[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_mouth_diff_2[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_mouth_diff_2[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_mouth_diff_2[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_mouth_diff_2[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -143,36 +164,42 @@ for(i in 1:days_to_be_pred){
 
 # saving results
 err_PPC_mouth = list(en = en_PPC_mouth, rn = rn_PPC_mouth)
+err_PPC_gen_mouth = list(en = en_PPC_gen_mouth, rn = rn_PPC_gen_mouth)
 err_MP_mouth  = list(en = en_MP_mouth,  rn = rn_MP_mouth)
 err_NP_mouth  = list(en = en_NP_mouth,  rn = rn_NP_mouth)
 subfolder = "/mouth/original"
 
 if(save_res){
   save(err_PPC_mouth, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_mouth.Rdata") )
+  save(err_PPC_gen_mouth, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_mouth.Rdata") )
   save(err_MP_mouth, file = paste0(paste0(path_stor_res,subfolder),"/err_MP_mouth.Rdata") )
   save(err_NP_mouth, file = paste0(paste0(path_stor_res,subfolder),"/err_NP_mouth.Rdata") )
 }
 
 
 err_PPC_mouth_diff_1 = list(en = en_PPC_mouth_diff_1, rn = rn_PPC_mouth_diff_1)
+err_PPC_gen_mouth_diff_1 = list(en = en_PPC_gen_mouth_diff_1, rn = rn_PPC_gen_mouth_diff_1)
 err_MP_mouth_diff_1  = list(en = en_MP_mouth_diff_1 , rn = rn_MP_mouth_diff_1)
 err_NP_mouth_diff_1  = list(en = en_NP_mouth_diff_1 , rn = rn_NP_mouth_diff_1)
 subfolder = "/mouth/diff_1"
 
 if(save_res){
   save(err_PPC_mouth_diff_1, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_mouth_diff_1.Rdata") )
+  save(err_PPC_gen_mouth_diff_1, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_mouth_diff_1.Rdata") )
   save(err_MP_mouth_diff_1,  file = paste0(paste0(path_stor_res,subfolder),"/err_MP_mouth_diff_1.Rdata") )
   save(err_NP_mouth_diff_1,  file = paste0(paste0(path_stor_res,subfolder),"/err_NP_mouth_diff_1.Rdata") )
 }
 
 
 err_PPC_mouth_diff_2 = list(en = en_PPC_mouth_diff_2, rn = rn_PPC_mouth_diff_2)
+err_PPC_gen_mouth_diff_2 = list(en = en_PPC_gen_mouth_diff_2, rn = rn_PPC_gen_mouth_diff_2)
 err_MP_mouth_diff_2  = list(en = en_MP_mouth_diff_2,  rn = rn_MP_mouth_diff_2)
 err_NP_mouth_diff_2  = list(en = en_NP_mouth_diff_2,  rn = rn_NP_mouth_diff_2)
 subfolder = "/mouth/diff_2"
 
 if(save_res){
   save(err_PPC_mouth_diff_2, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_mouth_diff_2.Rdata") )
+  save(err_PPC_gen_mouth_diff_2, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_mouth_diff_2.Rdata") )
   save(err_MP_mouth_diff_2,  file = paste0(paste0(path_stor_res,subfolder),"/err_MP_mouth_diff_2.Rdata") )
   save(err_NP_mouth_diff_2,  file = paste0(paste0(path_stor_res,subfolder),"/err_NP_mouth_diff_2.Rdata") )
 }
@@ -193,6 +220,15 @@ center = data_2d_wrapper_from_list(Xt_center)
   rn_PPC_center = numeric(N)
   rn_PPC_center_diff_1 = numeric(N)
   rn_PPC_center_diff_2 = numeric(N)
+  
+  
+  en_PPC_gen_center = numeric(N)
+  en_PPC_gen_center_diff_1 = numeric(N)
+  en_PPC_gen_center_diff_2 = numeric(N)
+  
+  rn_PPC_gen_center = numeric(N)
+  rn_PPC_gen_center_diff_1 = numeric(N)
+  rn_PPC_gen_center_diff_2 = numeric(N)
   
   
   en_MP_center = numeric(N)
@@ -222,11 +258,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on direct prediction
   pred_ppc = as.vector(prediction_PPC_center[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_center[[i]]$Prediction)
   pred_mp  = prediction_MP_center[[i]]$Prediction
   pred_np  = prediction_NP_center[[i]]$Prediction
   
   en_PPC_center[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_center[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_center[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_center[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_center[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_center[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -237,11 +277,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on diff1
   pred_ppc = as.vector(prediction_PPC_center_diff_1[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_center_diff_1[[i]]$Prediction)
   pred_mp  = prediction_MP_center_diff_1[[i]]$Prediction
   pred_np  = prediction_NP_center_diff_1[[i]]$Prediction
   
   en_PPC_center_diff_1[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_center_diff_1[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_center_diff_1[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_center_diff_1[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_center_diff_1[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_center_diff_1[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -252,11 +296,15 @@ for(i in 1:days_to_be_pred){
   
   # errors on diff2
   pred_ppc = as.vector(prediction_PPC_center_diff_2[[i]]$Prediction)
+  pred_ppc_gen = as.vector(prediction_PPC_gen_center_diff_2[[i]]$Prediction)
   pred_mp  = prediction_MP_center_diff_2[[i]]$Prediction
   pred_np  = prediction_NP_center_diff_2[[i]]$Prediction
   
   en_PPC_center_diff_2[i] = sqrt(MLmetrics::MSE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)]))
   rn_PPC_center_diff_2[i] = MLmetrics::MAE(pred_ppc[!is.na(test_set) & !is.na(pred_ppc)], test_set[!is.na(test_set) & !is.na(pred_ppc)])
+  
+  en_PPC_gen_center_diff_2[i] = sqrt(MLmetrics::MSE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)]))
+  rn_PPC_gen_center_diff_2[i] = MLmetrics::MAE(pred_ppc_gen[!is.na(test_set) & !is.na(pred_ppc_gen)], test_set[!is.na(test_set) & !is.na(pred_ppc_gen)])
   
   en_MP_center_diff_2[i]  = sqrt(MLmetrics::MSE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)]))
   rn_MP_center_diff_2[i]  = MLmetrics::MAE(pred_mp[!is.na(test_set) & !is.na(pred_mp)], test_set[!is.na(test_set) & !is.na(pred_mp)])
@@ -268,6 +316,7 @@ for(i in 1:days_to_be_pred){
 
 #save results
 err_PPC_center = list(en = en_PPC_center, rn = rn_PPC_center)
+err_PPC_gen_center = list(en = en_PPC_gen_center, rn = rn_PPC_gen_center)
 err_MP_center  = list(en = en_MP_center, rn = rn_MP_center)
 err_NP_center  = list(en = en_NP_center, rn = rn_NP_center)
 subfolder = "/center/original"
@@ -275,12 +324,14 @@ subfolder = "/center/original"
 # save results
 if(save_res){
   save(err_PPC_center, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_center.Rdata") )
+  save(err_PPC_gen_center, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_center.Rdata") )
   save(err_MP_center, file = paste0(paste0(path_stor_res,subfolder),"/err_MP_center.Rdata") )
   save(err_NP_center, file = paste0(paste0(path_stor_res,subfolder),"/err_NP_center.Rdata") )
 }
 
 
 err_PPC_center_diff_1 = list(en = en_PPC_center_diff_1, rn = rn_PPC_center_diff_1 )
+err_PPC_gen_center_diff_1 = list(en = en_PPC_gen_center_diff_1, rn = rn_PPC_gen_center_diff_1 )
 err_MP_center_diff_1  = list(en = en_MP_center_diff_1 , rn = rn_MP_center_diff_1 )
 err_NP_center_diff_1  = list(en = en_NP_center_diff_1 , rn = rn_NP_center_diff_1 )
 subfolder = "/center/diff_1"
@@ -288,12 +339,14 @@ subfolder = "/center/diff_1"
 # save results
 if(save_res){
   save(err_PPC_center_diff_1, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_center_diff_1.Rdata") )
+  save(err_PPC_gen_center_diff_1, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_center_diff_1.Rdata") )
   save(err_MP_center_diff_1,  file = paste0(paste0(path_stor_res,subfolder),"/err_MP_center_diff_1.Rdata") )
   save(err_NP_center_diff_1,  file = paste0(paste0(path_stor_res,subfolder),"/err_NP_center_diff_1.Rdata") )
 }
 
 
 err_PPC_center_diff_2 = list(en = en_PPC_center_diff_2, rn = rn_PPC_center_diff_2 )
+err_PPC_gen_center_diff_2 = list(en = en_PPC_gen_center_diff_2, rn = rn_PPC_gen_center_diff_2 )
 err_MP_center_diff_2   = list(en = en_MP_center_diff_2, rn = rn_MP_center_diff_2 )
 err_NP_center_diff_2   = list(en = en_NP_center_diff_2, rn = rn_NP_center_diff_2 )
 subfolder = "/center/diff_2"
@@ -301,6 +354,7 @@ subfolder = "/center/diff_2"
 # save results
 if(save_res){
   save(err_PPC_center_diff_2, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_center_diff_2.Rdata") )
+  save(err_PPC_gen_center_diff_2, file = paste0(paste0(path_stor_res,subfolder),"/err_PPC_gen_center_diff_2.Rdata") )
   save(err_MP_center_diff_2,  file = paste0(paste0(path_stor_res,subfolder),"/err_MP_center_diff_2.Rdata") )
   save(err_NP_center_diff_2,  file = paste0(paste0(path_stor_res,subfolder),"/err_NP_center_diff_2.Rdata") )
 }

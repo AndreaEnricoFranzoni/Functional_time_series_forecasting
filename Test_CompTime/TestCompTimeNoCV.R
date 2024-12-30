@@ -70,6 +70,48 @@ if(save_res){
 
 
 
+#using GEP
+times_NoCV_k_imp_gen = matrix(data=NA,nrow = length(grid_size),ncol=length(time_instants))
+times_NoCV_k_imp_gen = as.data.frame(times_NoCV_k_imp_gen)
+row.names(times_NoCV_k_imp_gen) = as.character(grid_size)
+colnames(times_NoCV_k_imp_gen)  = as.character(time_instants)
+
+
+counter = 0
+tot_it = length(time_instants)*length(grid_size)
+
+for (i in 1:length(time_instants)) {
+  for(j in 1:length(grid_size)){
+    
+    {
+      set.seed(23032000)
+      dim_grid           <- grid_size[j]                                         
+      n                  <- time_instants[i]                                        
+      t.grid             <- seq(0,1, length.out=dim_grid)
+      X.sample <- far_1_1D(kernel_id = "gaussian", noise_id = "1", n = n, t.grid = t.grid, a = 0.5, burnin = 0)
+    }
+    
+    start_time = Sys.time()
+    test = PPC_KO(X.sample,"NoCV",k=3,ex_solver=FALSE)
+    end_time = Sys.time()
+    
+    times_NoCV_k_imp_gen[j,i] = as.double(end_time-start_time)
+    
+    
+    counter = counter + 1
+    string_message = "
+                  Test time no cv k imp gep solver: time instants: %d, grid size: %d "
+    message <- sprintf(paste0(string_message,"/ Progress: %d/%d
+    ") , n, dim_grid, counter, tot_it)
+    setTxtProgressBar(txtProgressBar(min = 1, max = tot_it, style = 3), counter)
+    cat("\r", message)
+  }
+}
+
+
+
+
+
 
 ## -----looking for k thorugh threshold PPC-----
 times_NoCV_k_no_imp = matrix(data=NA,nrow = length(grid_size),ncol=length(time_instants))
