@@ -10,7 +10,7 @@ source(paste0(dir_w,"/Test_CompTime/utils/far_1_1d.R"))
 source(paste0(dir_w,"/Test_CompTime/utils/graphic_window.R"))
 
 #to eventually store results
-save_res = TRUE
+save_res = FALSE
 dir_store_res = paste0(dir_w,"/Test_CompTime/results")
 path_store_res = dir_store_res
 
@@ -109,6 +109,12 @@ for (i in 1:length(time_instants)) {
 }
 
 
+# for the grid_size = 10000: time is measured in minutes: convert it 
+times_NoCV_k_imp_gen[which(grid_size==10000),] = times_NoCV_k_imp_gen[which(grid_size==10000),]*60
+
+if(save_res){
+  save(times_NoCV_k_imp_gen, file = paste0(path_store_res,"/times_NoCV_k_imp_gen.Rdata"))
+}
 
 
 
