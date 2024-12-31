@@ -21,7 +21,7 @@ path_res_pred = paste0(dir_res,"/results_prediction")
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_errors"))  
 
-prediction_method = c("PPC", "PPC_gen", "KE", "KEI", "MP", "NP", "CC")
+prediction_method = c("PPC", "PPC_exp_pow", "PPC_gen", "KE", "KEI", "MP", "NP", "CC")
 
 for (pred_met in prediction_method) {
 
@@ -63,6 +63,11 @@ load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120
   rn_offer_PPC  = numeric(tot_pred)
   en_demand_PPC = numeric(tot_pred)
   rn_demand_PPC = numeric(tot_pred)
+  
+  en_offer_PPC_exp_pow  = numeric(tot_pred)
+  rn_offer_PPC_exp_pow  = numeric(tot_pred)
+  en_demand_PPC_exp_pow = numeric(tot_pred)
+  rn_demand_PPC_exp_pow = numeric(tot_pred)
   
   en_offer_PPC_gen  = numeric(tot_pred)
   rn_offer_PPC_gen  = numeric(tot_pred)
@@ -106,6 +111,9 @@ for (i in 1:tot_pred) {
   en_offer_PPC[i] = sqrt(MLmetrics::MSE(real_offer_curve,prediction_PPC_offer[[i]]$Prediction))
   rn_offer_PPC[i] = MLmetrics::MAE(real_offer_curve,prediction_PPC_offer[[i]]$Prediction)
   
+  en_offer_PPC_exp_pow[i] = sqrt(MLmetrics::MSE(real_offer_curve,prediction_PPC_exp_pow_offer[[i]]$Prediction))
+  rn_offer_PPC_exp_pow[i] = MLmetrics::MAE(real_offer_curve,prediction_PPC_exp_pow_offer[[i]]$Prediction)
+  
   en_offer_PPC_gen[i] = sqrt(MLmetrics::MSE(real_offer_curve,prediction_PPC_gen_offer[[i]]$Prediction))
   rn_offer_PPC_gen[i] = MLmetrics::MAE(real_offer_curve,prediction_PPC_gen_offer[[i]]$Prediction)
   
@@ -127,6 +135,9 @@ for (i in 1:tot_pred) {
   # saving prediction errors for demands curves
   en_demand_PPC[i] = sqrt(MLmetrics::MSE(real_demand_curve,prediction_PPC_demand[[i]]$Prediction))
   rn_demand_PPC[i] = MLmetrics::MAE(real_demand_curve,prediction_PPC_demand[[i]]$Prediction)
+  
+  en_demand_PPC_exp_pow[i] = sqrt(MLmetrics::MSE(real_demand_curve,prediction_PPC_exp_pow_demand[[i]]$Prediction))
+  rn_demand_PPC_exp_pow[i] = MLmetrics::MAE(real_demand_curve,prediction_PPC_exp_pow_demand[[i]]$Prediction)
   
   en_demand_PPC_gen[i] = sqrt(MLmetrics::MSE(real_demand_curve,prediction_PPC_gen_demand[[i]]$Prediction))
   rn_demand_PPC_gen[i] = MLmetrics::MAE(real_demand_curve,prediction_PPC_gen_demand[[i]]$Prediction)
@@ -152,6 +163,8 @@ for (i in 1:tot_pred) {
 {
 err_PPC = list( pred_offer  = list(en = en_offer_PPC,  rn = rn_offer_PPC),
                 pred_demand = list(en = en_demand_PPC, rn = rn_demand_PPC))
+err_PPC_exp_pow = list( pred_offer  = list(en = en_offer_PPC_exp_pow,  rn = rn_offer_PPC_exp_pow),
+                        pred_demand = list(en = en_demand_PPC_exp_pow, rn = rn_demand_PPC_exp_pow))
 err_PPC_gen = list( pred_offer  = list(en = en_offer_PPC_gen,  rn = rn_offer_PPC_gen),
                     pred_demand = list(en = en_demand_PPC_gen, rn = rn_demand_PPC_gen))
 err_KE  = list( pred_offer  = list(en = en_offer_KE,  rn = rn_offer_KE),
@@ -170,6 +183,7 @@ err_CC  = list( pred_offer  = list(en = en_offer_CC,  rn = rn_offer_CC),
 if(save_res){
   
   save(err_PPC, file = paste0(path_stor_res,"/PPC_err.Rdata"))
+  save(err_PPC_exp_pow, file = paste0(path_stor_res,"/PPC_exp_pow_err.Rdata"))
   save(err_PPC_gen, file = paste0(path_stor_res,"/PPC_gen_err.Rdata"))
   save(err_KE,  file = paste0(path_stor_res,"/KE_err.Rdata")) 
   save(err_KEI, file = paste0(path_stor_res,"/KEI_err.Rdata"))
