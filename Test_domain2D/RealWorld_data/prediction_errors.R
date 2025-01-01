@@ -364,7 +364,7 @@ for(i in 1:days_to_be_pred){
 
 #save results
 err_PPC_center = list(en = en_PPC_center, rn = rn_PPC_center)
-err_PPC_center_exp_pow = list(en = en_PPC_exp_pow_center, rn = rn_PPC_exp_pow_center)
+err_PPC_exp_pow_center = list(en = en_PPC_exp_pow_center, rn = rn_PPC_exp_pow_center)
 err_PPC_gen_center = list(en = en_PPC_gen_center, rn = rn_PPC_gen_center)
 err_MP_center  = list(en = en_MP_center, rn = rn_MP_center)
 err_NP_center  = list(en = en_NP_center, rn = rn_NP_center)
