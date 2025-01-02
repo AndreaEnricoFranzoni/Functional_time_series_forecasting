@@ -137,7 +137,7 @@ for (i in 1:length(number_threads_OMP)) {
 times_CV[[1]]
 times_CV[[1]][1,4]   = times_CV[[1]][1,4]*60
 times_CV[[1]][2,3:4] = times_CV[[1]][2,3:4]*60
-times_CV[[1]][3,1:4] = times_CV[[1]][3,1:4]*60
+times_CV[[1]][3,2:4] = times_CV[[1]][3,2:4]*60
 times_CV[[1]][4,1:4] = times_CV[[1]][4,1:4]*60
 
 times_CV[[2]]
@@ -173,7 +173,7 @@ times_CV[[6]][4,3:4] = times_CV[[6]][4,3:4]*60
 times_CV[[7]]
 times_CV[[7]][1,4]   = times_CV[[7]][1,4]*60
 times_CV[[7]][2,4]   = times_CV[[7]][2,4]*60
-times_CV[[7]][3,3:4] = times_CV[[7]][3,4]*60
+times_CV[[7]][3,4]   = times_CV[[7]][3,4]*60
 times_CV[[7]][4,3:4] = times_CV[[7]][4,3:4]*60
 
 times_CV[[8]]
@@ -196,53 +196,47 @@ if(save_res){
 # some are in minutes: TO BE CONVERTED
 # to be converted: do it manually
 times_CV_gen[[1]]
-times_CV_gen[[1]][2,3:4] = times_CV_gen[[1]][2,4]*60
+times_CV_gen[[1]][2,4] = times_CV_gen[[1]][2,4]*60
 times_CV_gen[[1]][3,4] = times_CV_gen[[1]][3,4]*60
 times_CV_gen[[1]][4,3:4] = times_CV_gen[[1]][4,3:4]*60
 
 times_CV_gen[[2]]
-times_CV_gen[[2]][1,4]   = times_CV_gen[[2]][1,4]*60
-times_CV_gen[[2]][2,4]   = times_CV_gen[[2]][2,4]*60
-times_CV_gen[[2]][3,3:4] = times_CV_gen[[2]][3,4]*60
-times_CV_gen[[2]][4,2:4] = times_CV[[2]][4,2:4]*60
+times_CV_gen[[2]][1,4] = times_CV_gen[[2]][1,4]*60
+times_CV_gen[[2]][2,4] = times_CV_gen[[2]][2,4]*60
+times_CV_gen[[2]][3,4] = times_CV_gen[[2]][3,4]*60
+times_CV_gen[[2]][4,4] = times_CV_gen[[2]][4,4]*60
 
-times_CV[[3]]
-times_CV[[3]][1,4]   = times_CV[[3]][1,4]*60
-times_CV[[3]][2,4]   = times_CV[[3]][2,4]*60
-times_CV[[3]][3,3:4] = times_CV[[3]][3,3:4]*60
-times_CV[[3]][4,2:4] = times_CV[[3]][4,2:4]*60
+times_CV_gen[[3]]
+times_CV_gen[[3]][2,4] = times_CV_gen[[3]][2,4]*60
+times_CV_gen[[3]][3,4] = times_CV_gen[[3]][3,4]*60
+times_CV_gen[[3]][4,4] = times_CV_gen[[3]][4,4]*60
 
-times_CV[[4]]
-times_CV[[4]][1,4]   = times_CV[[4]][1,4]*60
-times_CV[[4]][2,4]   = times_CV[[4]][2,4]*60
-times_CV[[4]][3,3:4] = times_CV[[4]][3,3:4]*60
-times_CV[[4]][4,2:4] = times_CV[[4]][4,2:4]*60
+times_CV_gen[[4]]
+times_CV_gen[[4]][2,4] = times_CV_gen[[4]][2,4]*60
+times_CV_gen[[4]][3,4] = times_CV_gen[[4]][3,4]*60
+times_CV_gen[[4]][4,4] = times_CV_gen[[4]][4,4]*60
 
-times_CV[[5]]
-times_CV[[5]][1,4]   = times_CV[[5]][1,4]*60
-times_CV[[5]][2,4]   = times_CV[[5]][2,4]*60
-times_CV[[5]][3,3:4] = times_CV[[5]][3,3:4]*60
-times_CV[[5]][4,3:4] = times_CV[[5]][4,3:4]*60
+times_CV_gen[[5]]
+times_CV_gen[[5]][2,4] = times_CV_gen[[5]][2,4]*60
+times_CV_gen[[5]][3,4] = times_CV_gen[[5]][3,4]*60
+times_CV_gen[[5]][4,4] = times_CV_gen[[5]][4,4]*60
 
-times_CV[[6]]
-times_CV[[6]][1,4]   = times_CV[[6]][1,4]*60
-times_CV[[6]][2,4]   = times_CV[[6]][2,4]*60
-times_CV[[6]][3,3:4] = times_CV[[6]][3,3:4]*60
-times_CV[[6]][4,3:4] = times_CV[[6]][4,3:4]*60
+times_CV_gen[[6]]
+times_CV_gen[[6]][2,4] = times_CV_gen[[6]][2,4]*60
+times_CV_gen[[6]][3,4] = times_CV_gen[[6]][3,4]*60
+times_CV_gen[[6]][4,4] = times_CV_gen[[6]][4,4]*60
 
-times_CV[[7]]
-times_CV[[7]][1,4]   = times_CV[[7]][1,4]*60
-times_CV[[7]][2,4]   = times_CV[[7]][2,4]*60
-times_CV[[7]][3,3:4] = times_CV[[7]][3,4]*60
-times_CV[[7]][4,3:4] = times_CV[[7]][4,3:4]*60
+times_CV_gen[[7]]
+times_CV_gen[[7]][2,4] = times_CV_gen[[7]][2,4]*60
+times_CV_gen[[7]][3,4] = times_CV_gen[[7]][3,4]*60
+times_CV_gen[[7]][4,4] = times_CV_gen[[7]][4,4]*60
 
-times_CV[[8]]
-times_CV[[8]][1,4]   = times_CV[[8]][1,4]*60
-times_CV[[8]][2,4]   = times_CV[[8]][2,4]*60
-times_CV[[8]][3,3:4] = times_CV[[8]][3,3:4]*60
-times_CV[[8]][4,3:4] = times_CV[[8]][4,3:4]*60
+times_CV_gen[[8]]
+times_CV_gen[[8]][2,4] = times_CV_gen[[8]][2,4]*60
+times_CV_gen[[8]][3,4] = times_CV_gen[[8]][3,4]*60
+times_CV_gen[[8]][4,4] = times_CV_gen[[8]][4,4]*60
 
 
 if(save_res){
-  save(times_CV, file = paste0(path_store_res,"/times_CV.Rdata"))
+  save(times_CV_gen, file = paste0(path_store_res,"/times_CV_gen.Rdata"))
 }
