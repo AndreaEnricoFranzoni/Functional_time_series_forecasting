@@ -63,7 +63,6 @@ for (i in 1:total_predictions) {
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_,
-                          threshold_ppc = threshold_ppc,
                           disc_ev = x_grid,
                           left_extreme = left_extreme,
                           right_extreme = right_extreme)
@@ -98,7 +97,6 @@ for (i in 1:total_predictions) {
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_,
-                          threshold_ppc = threshold_ppc,
                           disc_ev = x_grid,
                           left_extreme = left_extreme,
                           right_extreme = right_extreme)

@@ -10,7 +10,7 @@ source(paste0(dir_w,"/Test_CompTime/utils/far_1_1d.R"))
 source(paste0(dir_w,"/Test_CompTime/utils/graphic_window.R"))
 
 #to eventually store results
-save_res = FALSE
+save_res = TRUE
 dir_store_res = paste0(dir_w,"/Test_CompTime/results")
 path_store_res = dir_store_res
 
