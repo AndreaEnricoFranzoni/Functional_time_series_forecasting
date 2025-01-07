@@ -95,6 +95,7 @@ price_order=1
 ############
 
 # paramters to store results, predicted curves and results for CP bands
+{
 number_of_predictions = length((end_dataset+8):last_prediction) #number of curves predicted: 184
 vec_day_to_be_predicted=rep(NA,number_of_predictions)
 class(vec_day_to_be_predicted) <- "Date"
@@ -129,7 +130,7 @@ inflim_predset_v_alp50=matrix(NA,number_of_predictions,length(pos_last_q:pos_fir
 inflim_predset_a_alp50=matrix(NA,number_of_predictions,length(pos_last_q:pos_first_q))
 suplim_predset_v_alp50=matrix(NA,number_of_predictions,length(pos_last_q:pos_first_q))
 suplim_predset_a_alp50=matrix(NA,number_of_predictions,length(pos_last_q:pos_first_q))
-
+}
 
 
 
@@ -174,7 +175,7 @@ for (h in 1:number_of_predictions){
   
   #data in the training set
   #Out 2
-  red_day=do.call("c",lapply(log(MGS_cg_260419_310120_data$y_axis),function(x) x$day))[pos_first_day_dataset:pos_last_day_dataset]#;range(red_day)
+  red_day=do.call("c",lapply((MGS_cg_260419_310120_data$y_axis),function(x) x$day))[pos_first_day_dataset:pos_last_day_dataset]#;range(red_day)
   
   #abscissa
   #Out 3
@@ -190,9 +191,9 @@ for (h in 1:number_of_predictions){
   
   #day to be predicted
   #Out 5
-  new_red_day=log(MGS_cg_260419_310120_data$y_axis[[pos_day_to_be_predicted]]$day)
+  new_red_day=(MGS_cg_260419_310120_data$y_axis[[pos_day_to_be_predicted]]$day)
   result_CONFORMAL_log[[h]]["Day predicted"] = as.Date(new_red_day)
-  result_CONFORMAL_log[[h]]["Day predicted"] = log(MGS_cg_260419_310120_data$y_axis[[pos_day_to_be_predicted]]$day)
+  result_CONFORMAL_log[[h]]["Day predicted"] = (MGS_cg_260419_310120_data$y_axis[[pos_day_to_be_predicted]]$day)
   
   #real prices and quantities traded
   #Out 6
@@ -455,9 +456,9 @@ if(save_res){
   file_pred_offers = paste0(path_stor_res,"/prediction_CC_offer_log.Rdata")
   save(prediction_CC_offer_log, file = file_pred_offers)
   
-  file_pred_demands = paste0(path_stor_res,"/prediction_CC_demand.Rdata")
+  file_pred_demands = paste0(path_stor_res,"/prediction_CC_demand_log.Rdata")
   save(prediction_CC_demand_log, file = file_pred_demands)
   
-  file_conformal = paste0(path_stor_res,"/CP_CC.Rdata")
-  save(result_CONFORMAL, file = file_conformal)
+  file_conformal = paste0(path_stor_res,"/CP_CC_log.Rdata")
+  save(result_CONFORMAL_log, file = file_conformal)
 }

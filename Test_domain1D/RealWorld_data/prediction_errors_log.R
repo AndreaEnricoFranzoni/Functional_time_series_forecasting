@@ -32,7 +32,7 @@ for (pred_met in prediction_method) {
   
 }
 
-tot_pred = length(prediction_PPC_offer)
+tot_pred = length(prediction_PPC_offer_log)
 
 
 

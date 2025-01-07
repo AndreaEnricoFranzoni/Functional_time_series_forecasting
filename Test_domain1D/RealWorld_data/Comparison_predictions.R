@@ -3,7 +3,7 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Evaluation of prediction on simulations thorugh boxplots of En and Rn, and summary statistics of them
+### Predicted curves plot
 ###
 
 #if you want to save the result in a folder 

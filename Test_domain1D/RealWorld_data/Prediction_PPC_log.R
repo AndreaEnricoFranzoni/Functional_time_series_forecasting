@@ -53,6 +53,14 @@ total_predictions         <- length(prediction_PPC_offer_log)
 
 
 
+
+
+
+
+
+
+
+
 ## ----- offers prediction -----
 string_message = "
                   PPC prediction of log offers price "
