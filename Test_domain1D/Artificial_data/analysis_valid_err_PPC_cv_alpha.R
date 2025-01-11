@@ -47,7 +47,7 @@ data_generated = c(c("_gau_0_5","Validation error on regularization parameter, g
                    c("_spt_0_5","Validation error on regularization parameter, sloping plane t kernel, norm 0.5"),
                    c("_spt_0_8","Validation error on regularization parameter, sloping plane t kernel, norm 0.8"),
                    c("_sps_0_5","Validation error on regularization parameter, sloping plane s kernel, norm 0.5"),
-                   c("_sps_0_5","Validation error on regularization parameter, sloping plane s kernel, norm 0.8")
+                   c("_sps_0_8","Validation error on regularization parameter, sloping plane s kernel, norm 0.8")
                    )
 for (i in c(1,3,5,7,9,11,13,15)) {
   valid_errors = get(paste0("valid_err_cv_PPC",data_generated[i]))
@@ -88,7 +88,7 @@ data_generated = c(c("_gau_0_5","Validation error on regularization parameter, g
                    c("_spt_0_5","Validation error on regularization parameter, sloping plane t kernel, norm 0.5"),
                    c("_spt_0_8","Validation error on regularization parameter, sloping plane t kernel, norm 0.8"),
                    c("_sps_0_5","Validation error on regularization parameter, sloping plane s kernel, norm 0.5"),
-                   c("_sps_0_5","Validation error on regularization parameter, sloping plane s kernel, norm 0.8"))
+                   c("_sps_0_8","Validation error on regularization parameter, sloping plane s kernel, norm 0.8"))
 
 for (i in c(1,3,5,7,9,11,13,15)) {
   valid_errors = get(paste0("valid_err_cv_alpha_PPC",data_generated[i]))
