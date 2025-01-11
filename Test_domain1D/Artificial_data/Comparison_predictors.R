@@ -4,23 +4,29 @@ cat("\014")
 set.seed(23032000)
 
 
-### Evaluation of prediction on simulations through boxplots of En and Rn
+##############################################################
+#### Evaluating predictors as indicated in the readme     ####
+##############################################################
 
-
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
-
-
-#in which folder the result of the prediction are
-path_res_pred = paste0(dir_res,"/results_prediction")
 #if you want to save the result 
 save_res = TRUE
 format = ".jpg"
+
+
+#in which folder the result of the prediction are
+dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
+path_res_pred = paste0(dir_res,"/results_prediction")
+
+
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_plot_errors"))  
 
-prediction_method = c("PPC", "KE", "KEI", "MP", "NP", "EX")
 
+#predictors used
+prediction_method = c("PPC", "KE", "KEI", "MP", "NP", "EX")
+#loading predictions
 for (pred_met in prediction_method) {
 
   files <- list.files(path = paste0(path_res_pred,paste0("/",pred_met)), full.names = TRUE)

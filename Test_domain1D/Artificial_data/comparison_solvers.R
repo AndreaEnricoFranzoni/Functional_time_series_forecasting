@@ -4,17 +4,21 @@ cat("\014")
 set.seed(23032000)
 
 
-### Comparison between solvers
+###########################################################################
+#### Evaluating prediction from PPC comparing ex_solver and gep_solver ####
+###########################################################################
 
 
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
 
 
 #in which folder the result of the prediction are
+dir_res = paste0(dir_w,"/Test_domain1D/Artificial_data/results")
 path_res_pred = paste0(dir_res,"/results_prediction")
 
 
+#loading the two solvers results
 prediction_method = c("PPC", "PPC_gen")
 
 for (pred_met in prediction_method) {
@@ -26,6 +30,7 @@ for (pred_met in prediction_method) {
 }
 
 
+#select which process
 name_kernel = "gau"
 #name_kernel = "id"
 #name_kernel = "spt"
@@ -35,12 +40,13 @@ norm_kernel = "0_5"
 #norm_kernel = "0_8"
 
 
+#comparing the solvers
 ex_slv = get(paste0("res_PPC_",paste0(paste0(name_kernel,"_"),norm_kernel)))
 gep_slv = get(paste0("res_PPC_gen_",paste0(paste0(name_kernel,"_"),norm_kernel)))
 
 N = length(ex_slv$En)
 
-
+#errors distribtions
 en_ex  = ex_slv$En
 en_gep = gep_slv$En
 summary(en_ex)

@@ -1,13 +1,17 @@
-cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
-                 grid_eval,
-                 p_vector,
-                 improved=FALSE
+#function to perform cv for KE and KEI (training set: from start up to i. Validation: i+1. i in {ceil(n/2),....,n-1}, n total time instants of the FTS)
+
+cv_EK = function(X,                 #matrix for curve fts: rows(m): evaluations x cols(n): time instants
+                 grid_eval,         # grid for curve evaluations
+                 p_vector,          # input space for the components
+                 improved=FALSE     # TRUE for using improved version
                  )
 {
-  #X=train_set,grid_eval=t.grid,p_vector=c(2,3,4,5,6),improved = TRUE
+  #time instants
   n = dim(X)[2]
   
+  #first instant training set
   t_start = ceiling(n/2)
+  #last instant training set
   t_end = n-1
   
   time_instants_cv = seq(t_start,t_end,by=1)
@@ -25,7 +29,7 @@ cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
       X_val   = X[,t+1]
       
       
-      # dati vanno trasposti per andare nella prossima funzione: ogni riga: time instant. Ogni colonna: evaluation
+      # data to be transposed: row: time instant. col: evaluation
       X_ek = t(X_train)
       
       dataset_wrapped=NULL
@@ -33,6 +37,7 @@ cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
         dataset_wrapped=c(dataset_wrapped,list(list(X_ek[i,])))
       }
       
+      #predicting validation set
       testing = EK_pred(data_y = dataset_wrapped,
                         l = 3,
                         b = 2,
@@ -55,6 +60,7 @@ cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
     
   }
   
+  #best p
   p_best = p_vector[which(err_cv==min(err_cv))]
   
   X_ek = t(X)
@@ -64,6 +70,7 @@ cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
     dataset_wrapped=c(dataset_wrapped,list(list(X_ek[i,])))
   }
    
+  #computing prediction
           ke_opt = EK_pred(data_y = dataset_wrapped,
                         l = 3,
                         b = 2,

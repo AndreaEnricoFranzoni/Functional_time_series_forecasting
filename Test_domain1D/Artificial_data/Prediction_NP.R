@@ -4,17 +4,23 @@ cat("\014")
 set.seed(23032000)
 
 
-#change here
+##############################################################
+#### Computing NP prediction as indicated in the readme  ####
+##############################################################
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/Artificial_data/results/results_prediction"
-name_folder_res = "/NP"
-
-
 #if you want to save the result 
 save_res = FALSE
+
+
 #where to store the results
-path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)              
-#saving results
+dir_stor_res = "/Test_domain1D/Artificial_data/results/results_prediction"
+name_folder_res = "/NP"
+path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)        
+
+#file for saving results
 {
   file_saving_NP_gau_0_5 = "/prediction_NP_gau_0_5.Rdata"
   file_saving_NP_gau_0_8 = "/prediction_NP_gau_0_8.Rdata"

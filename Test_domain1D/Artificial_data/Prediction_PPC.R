@@ -3,19 +3,25 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
+##############################################################
+#### Computing PPC prediction as indicated in the readme  ####
+##############################################################
+
 library(PPCKO)
 
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/Artificial_data/results/results_prediction"
-name_folder_res = "/PPC"
-
 
 #if you want to save the result 
 save_res = FALSE
+
+
 #where to store the results
-path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)              
-#saving results
+dir_stor_res = "/Test_domain1D/Artificial_data/results/results_prediction"
+name_folder_res = "/PPC"
+path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res) 
+
+#file for saving results
 {
   file_saving_PPC_gau_0_5 = "/prediction_PPC_gau_0_5.Rdata"
   file_saving_PPC_gau_0_8 = "/prediction_PPC_gau_0_8.Rdata"
@@ -27,11 +33,10 @@ path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)
   file_saving_PPC_sps_0_8 = "/prediction_PPC_sps_0_8.Rdata"
 }
 
-
+#uploading functions for generating data
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/far_1_1d.R"))         #load functions to generate the FAR(1) process
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R")) #load functions to evaluate the prediction error
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       #load parameter to generate data according to a strategy
-path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)              #where to store the results
 
 
 #PPCKO parameters 

@@ -3,18 +3,24 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
+
+####################################################################################################
+#### Comparing PPC alpha validation errors as indicated in the readme, plotting their dynamics  ####
+####################################################################################################
+
 library(PPCKO)
 
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/Artificial_data/results/results_valid_err_alpha"
-
-format = ".jpg"
-
 
 #if you want to save the result 
 save_res = TRUE
+format = ".jpg"
+
+
+
 #where to store the results
+dir_stor_res = "/Test_domain1D/Artificial_data/results/results_valid_err_alpha"
 path_stor_res = paste0(dir_w,dir_stor_res)  
 path_save_res = paste0(path_stor_res,"/plot_valid_err")
 
