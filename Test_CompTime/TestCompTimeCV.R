@@ -2,17 +2,27 @@ rm(list=ls())
 graphics.off()
 cat("\014")
 
+
+#####################################################################################################################
+#### Computational time of PPCKO cv version, for sizes of alpha input space and FTS  time instants:              ####
+#### comparing parallel and sequential versions, for different numbers of threads, for ex_solver vs gep_solver   ####           
+#####################################################################################################################
+
+
 library(PPCKO)
 
-#change here 
+#put here the path of the local copy of the directory 
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
+#upload the functions to create FAR(1)
 source(paste0(dir_w,"/Test_CompTime/utils/far_1_1d.R"))
 source(paste0(dir_w,"/Test_CompTime/utils/graphic_window.R"))
 
 
-
 #to eventually store results
 save_res = FALSE
+
+#directory storing results
 dir_store_res = paste0(dir_w,"/Test_CompTime/results")
 path_store_res = dir_store_res
 
@@ -21,7 +31,7 @@ path_store_res = dir_store_res
 ## ----parallel-----
 number_threads_OMP = c(1,2,3,4,5,6,7,8)
 # checking, for different values of discrete grid size and time instants, the computational time 
-# for PPC KO
+# for PPCKO
 
 #each row: grid size; each col: number time instants
 time_instants <- c(19,49,99,499)

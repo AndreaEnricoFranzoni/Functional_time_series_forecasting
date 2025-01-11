@@ -2,21 +2,35 @@ rm(list=ls())
 graphics.off()
 cat("\014")
 
-library(tidyr)
-library(ggplot2)
 
-#change here 
+################################################################################################################################################
+#### Plotting computational time of PPCKO cv version, for sizes of alpha input space and FTS  time instants:                                ####
+#### - one plot, for each thread, for each pair of tested alpha input space size and FTS time instants, comparing ex_solver and gep_solver; ####
+#### - for both ex_solver and gep_solver, plotting, for each time instant, the time wrt the alpha input space size, and viceversa           ####
+################################################################################################################################################
+
+
+#put here the path of the local copy of the directory 
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
-
+#to eventually store results
 save_res = TRUE
 format_fl = ".jpg"
 
+#load results to be plotted
 load(paste0(dir_w,"/Test_CompTime/results/times_CV.Rdata"))
 load(paste0(dir_w,"/Test_CompTime/results/times_CV_gen.Rdata"))
 
+#to store the results
 path_store_res = paste0(dir_w,"/Test_CompTime//results/par_vs_seq")
 
+
+#packages for plotting
+library(tidyr)
+library(ggplot2)
+
+
+#threads tested
 n_threads = length(times_CV)
 threads = 1:n_threads
 # in this script: everything is specific with respect tests in "TestCompTimeCV.R"
@@ -44,30 +58,24 @@ for (i in threads) {
 }
 
 
-
 data <- data.frame(
   Category = categories,
   ex_solver = times,
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
-time_plot=ggplot(data_long, aes(x = Category, y = Value, fill = Group)) +
-  geom_bar(stat = "identity", position = "dodge", color = "black") +
-  labs(
-    title = title,
-    x = "Threads",
-    y = "Time [s]",
-    fill = "Solver"
-  ) +
-  scale_fill_manual(values = c(ex_solver = "purple", gep_solver = "orange")) + 
-  theme_minimal()
-
-
-
+time_plot = ggplot(data_long, aes(x = Category, y = Value, fill = Group)) +
+                   geom_bar(stat = "identity", position = "dodge", color = "black") +
+                  labs(title = title,
+                       x = "Threads",
+                       y = "Time [s]",
+                       fill = "Solver") +
+            scale_fill_manual(values = c(ex_solver = "purple", gep_solver = "orange")) + 
+            theme_minimal()
 
 
 if(save_res){
@@ -80,7 +88,6 @@ if(save_res){
          height = 10,
          dpi = 300)
 }
-
 
 
 
@@ -109,22 +116,18 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
-time_plot=ggplot(data_long, aes(x = Category, y = Value, fill = Group)) +
+time_plot = ggplot(data_long, aes(x = Category, y = Value, fill = Group)) +
   geom_bar(stat = "identity", position = "dodge", color = "black") +
-  labs(
-    title = title,
-    x = "Threads",
-    y = "Time [s]",
-    fill = "Solver"
-  ) +
+  labs(title = title,
+       x = "Threads",
+       y = "Time [s]",
+       fill = "Solver") +
   scale_fill_manual(values = c(ex_solver = "purple", gep_solver = "orange")) + 
   theme_minimal()
-
-
 
 
 if(save_res){
@@ -137,8 +140,6 @@ if(save_res){
          height = 10,
          dpi = 300)
 }
-
-
 
 
 
@@ -166,7 +167,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -194,7 +195,6 @@ if(save_res){
          height = 10,
          dpi = 300)
 }
-
 
 
 
@@ -223,7 +223,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -280,7 +280,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -334,7 +334,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -391,7 +391,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -448,7 +448,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -504,7 +504,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -561,7 +561,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -618,7 +618,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -675,7 +675,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -732,7 +732,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -790,7 +790,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
@@ -904,7 +904,7 @@ data <- data.frame(
   gep_solver = times_gen
 )
 
-# Trasforma in formato lungo
+
 data_long <- data %>%
   pivot_longer(cols = c(ex_solver, gep_solver), names_to = "Group", values_to = "Value")
 
