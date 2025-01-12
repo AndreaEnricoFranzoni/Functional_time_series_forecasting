@@ -1,4 +1,4 @@
-
+## COPYRIGHT OF AJROLDI N.
 #'
 #' Conformal prediction bands for functional time series. 
 #' 

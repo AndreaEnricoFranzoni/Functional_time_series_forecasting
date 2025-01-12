@@ -3,14 +3,18 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Analysis of results of PPC forecasting: looking for dynamic of reg param alpha
-###                                         number of PPCs retained k,
-###                                         explanatory power boxplot, for both offer and demand  
+########################################################################################################################################
+### Analysis of results of PPC forecasting: looking for regularization parameter, number of PPCs and explanatory power behavior  #######
+########################################################################################################################################
+
+
+
+#put here the path of the local copy of the directory
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
 
 #if you want to save the result in a folder 
 save_res = TRUE
-
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
 
 

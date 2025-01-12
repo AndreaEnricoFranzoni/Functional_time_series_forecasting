@@ -3,15 +3,17 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
+##############################################################################################################
+### Performing PPC prediction of the next day after the last one available, nalyzing forecasting and PPCs  ###
+##############################################################################################################
+
 library(PPCKO)
 
-
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
-load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120_data.Rdata"))
 
-#if you want to store results
+#if you want to save results
 save_res = TRUE
 dir_res = "/Test_domain1D/RealWorld_data/results"
 name_folder_res = "/results_next_instant_forecast"
@@ -19,7 +21,8 @@ path_stor_res = paste0(paste0(dir_w,dir_res),name_folder_res)
 
 
 
-
+#load data
+load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120_data.Rdata"))
 {
   x_grid_dim         <- 401
   x_grid             <- MGS_cg_260419_310120_data$x_axis[1:x_grid_dim]

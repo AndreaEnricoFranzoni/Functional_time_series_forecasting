@@ -1,3 +1,5 @@
+## COPYRIGHT OF DIQUIGIOVANNI J.
+
 ############
 # 1 --- Parametri che identificano primo giorno del training, m, l.
 ############

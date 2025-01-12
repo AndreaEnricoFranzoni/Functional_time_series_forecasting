@@ -3,14 +3,18 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Analysis of results of PPC forecasting: looking for dynamic of reg param alpha
-###                                         number of PPCs retained k,
-###                                         explanatory power boxplot, for both offer and demand  
+#############################################################################################################################
+### Evaluating where the intersection between PPC predicted curves happens, visualizing its distance wrt to real traded   ###
+### quantity and price with bagplots                                                                                      ###
+#############################################################################################################################
+
+
+#put here the path of the local copy of the directory
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
 
 #if you want to save the result in a folder 
 save_res = TRUE
-
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
 
 
@@ -44,6 +48,8 @@ final_p_cc  = numeric(N_pred)
 real_q_obs  = numeric(N_pred)
 real_p_obs  = numeric(N_pred)
 
+
+# when intersection happens for PPC predictions
 for (i in 1:N_pred) {
   real_p = result_CONFORMAL[[i]]$`Price to be predicted`
   real_q = result_CONFORMAL[[i]]$`Quantity to be predicted`

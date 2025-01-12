@@ -1,3 +1,5 @@
+## COPYRIGHT OF DIQUIGIOVANNI J.
+
 #correction_monotonic_function=function(inflim,suplim,type){
   
 #  inflim_mod=rep(NA,length(inflim))

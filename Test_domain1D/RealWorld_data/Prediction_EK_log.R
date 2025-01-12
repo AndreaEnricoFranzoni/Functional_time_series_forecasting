@@ -5,23 +5,32 @@ set.seed(23032000)
 
 
 
+#########################################################################
+#### Computing KE and KEI log-prediction as indicated in the readme  ####
+#########################################################################
 
-#change here
-#change here
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction_log"
-name_folder_res_1 = "/KE"
-name_folder_res_2 = "/KEI"
+
 
 #if you want to save the result 
 save_res = TRUE
+
+
 #where to store the results
+dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction_log"
+name_folder_res_1 = "/KE"
+name_folder_res_2 = "/KEI"
 path_stor_res_1 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_1)  
 path_stor_res_2 = paste0(paste0(dir_w,dir_stor_res),name_folder_res_2)  
 
 load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120_data.Rdata"))
-source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/EstimatedKernel_predictor.R"))       #load parameter to generate data according to a strategy
-source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/KE_cv.R"))       #load parameter to generate data according to a strategy
+
+#functions for EK and EKI
+source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/EstimatedKernel_predictor.R"))      
+source(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/KE_cv.R"))       
 
 
 

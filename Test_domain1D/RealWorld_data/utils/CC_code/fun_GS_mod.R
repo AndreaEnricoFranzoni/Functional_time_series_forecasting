@@ -1,31 +1,33 @@
+## COPYRIGHT OF DIQUIGIOVANNI J.
+
 #funzione 'point_prediction_conformal_TS'.
 
 #Funzione che riceve in input:
 
 #1-data_y: la lista degli n dati funzionali
 #2-m
-#3-b: ATTENTO: se usi b!=1 assicurati che size del calibration set sia scelto in modo tale da non creare problemi. Inoltre, se b!=1 non ho pensato benissimo a come gestire il fatto che MGS non pubblica i dati per una settimana, cioè magari ha senso prendere i blocchi considerando sta cosa!
-#4-AR_order_v: ordine dell'AR pointwise per le curve di vendita. Default è 7.
+#3-b: ATTENTO: se usi b!=1 assicurati che size del calibration set sia scelto in modo tale da non creare problemi. Inoltre, se b!=1 non ho pensato benissimo a come gestire il fatto che MGS non pubblica i dati per una settimana, cioï¿½ magari ha senso prendere i blocchi considerando sta cosa!
+#4-AR_order_v: ordine dell'AR pointwise per le curve di vendita. Default ï¿½ 7.
 #5-intercept_v: TRUE se si vuole includere l'intercetta nell' AR(AR_order) per le curve di vendita, FALSE se non la si vuole
-#6-AR_order_a: ordine dell'AR pointwise per le curve di acquisto. Default è 7.
+#6-AR_order_a: ordine dell'AR pointwise per le curve di acquisto. Default ï¿½ 7.
 #7-intercept_a: TRUE se si vuole includere l'intercetta nell' AR(AR_order) per le curve di acquisto, FALSE se non la si vuole
-#8-partial_calibration_rotation: TRUE se NON permetti il calcolo del NCS per le osservazioni del calibration che avrebbero come covariate nel futuro, FALSE altrimenti. ATTENTO: per il momento se TRUE ho semplicemente escluso le permutazioni che in testa avevano sequenze non crescenti, pensa se si può fare meglio. Inoltre attento se metti FALSE rischi che girando il dataset che sfasi tutto l'ordine se non hai un calibration set che sia multiplo di 7 tipo!
-#9-common_grid: la griglia su cui le funzioni sono valutate. In questo caso passerò un vettore perchè assumo che curve di acquisto e curve di vendita siano sulla stessa griglia, volendo si può ovviamente generalizzare usando una lista contenente i due vettori per esempio. Questo parametro serve per rendere monotone le previsioni
-#10-bivariate_model: TRUE se per prevedere le curve di vendita usi anche quelle passate di acquisto (e viceversa), FALSE altrimenti. ATTENTO: se AR_order_v e AR_order_a sono diversi non so cosa succeda nel codice, perchè quando calcoli i NCS nel calibration si sfaserebbero le due sequenze e diventa un problema forse. Sto considerando quindi AR_order_v=AR_order_a
-#11-opp_order_v: ordine dell'AR pointwise delle curve di vendita nella predizione delle curve di acquisto. Default è 0, non mettere NULL o simili perchè senno c'è un errore. Viene usato solo se bivariate_model=TRUE. Per il momento deve essere <= di AR_order_a
-#12-opp_order_a: ordine dell'AR pointwise delle curve di acquisto nella predizione delle curve di vendita. Default è 0, non mettere NULL o simili perchè senno c'è un errore. Viene usato solo se bivariate_model=TRUE. Per il momento deve essere <= di AR_order_v
-#13-dummy_day: TRUE se si inserisce una dummy per il giorno della settimana, FALSE altrimenti. Se TRUE, in automatico inserisco l'intercetta nel modello e considero come baseline il giorno lunedì
-#14-weekdays_data: argomento che viene usato solo se dummy_day=TRUE. Riporta il giorno della settimana (lunedì-martedì ecc...) delle n osservazioni del dataset. Serve per costuire le dummy del giorno della settimana.
-#15-weekdays_fun_n_plus_8: argomento che viene usato solo se dummy_day=TRUE. Riporta il giorno della settimana (lunedì-martedì ecc...) del giorno che voglio prevedere ossia n+8.
+#8-partial_calibration_rotation: TRUE se NON permetti il calcolo del NCS per le osservazioni del calibration che avrebbero come covariate nel futuro, FALSE altrimenti. ATTENTO: per il momento se TRUE ho semplicemente escluso le permutazioni che in testa avevano sequenze non crescenti, pensa se si puï¿½ fare meglio. Inoltre attento se metti FALSE rischi che girando il dataset che sfasi tutto l'ordine se non hai un calibration set che sia multiplo di 7 tipo!
+#9-common_grid: la griglia su cui le funzioni sono valutate. In questo caso passerï¿½ un vettore perchï¿½ assumo che curve di acquisto e curve di vendita siano sulla stessa griglia, volendo si puï¿½ ovviamente generalizzare usando una lista contenente i due vettori per esempio. Questo parametro serve per rendere monotone le previsioni
+#10-bivariate_model: TRUE se per prevedere le curve di vendita usi anche quelle passate di acquisto (e viceversa), FALSE altrimenti. ATTENTO: se AR_order_v e AR_order_a sono diversi non so cosa succeda nel codice, perchï¿½ quando calcoli i NCS nel calibration si sfaserebbero le due sequenze e diventa un problema forse. Sto considerando quindi AR_order_v=AR_order_a
+#11-opp_order_v: ordine dell'AR pointwise delle curve di vendita nella predizione delle curve di acquisto. Default ï¿½ 0, non mettere NULL o simili perchï¿½ senno c'ï¿½ un errore. Viene usato solo se bivariate_model=TRUE. Per il momento deve essere <= di AR_order_a
+#12-opp_order_a: ordine dell'AR pointwise delle curve di acquisto nella predizione delle curve di vendita. Default ï¿½ 0, non mettere NULL o simili perchï¿½ senno c'ï¿½ un errore. Viene usato solo se bivariate_model=TRUE. Per il momento deve essere <= di AR_order_v
+#13-dummy_day: TRUE se si inserisce una dummy per il giorno della settimana, FALSE altrimenti. Se TRUE, in automatico inserisco l'intercetta nel modello e considero come baseline il giorno lunedï¿½
+#14-weekdays_data: argomento che viene usato solo se dummy_day=TRUE. Riporta il giorno della settimana (lunedï¿½-martedï¿½ ecc...) delle n osservazioni del dataset. Serve per costuire le dummy del giorno della settimana.
+#15-weekdays_fun_n_plus_8: argomento che viene usato solo se dummy_day=TRUE. Riporta il giorno della settimana (lunedï¿½-martedï¿½ ecc...) del giorno che voglio prevedere ossia n+8.
 #16-inclusion_price: TRUE se si inseriscono i prezzi finali degli ultimi giorni (ossia gli ultimi giorni disponibili: al giorno t-1,t-2 ecc), FALSE altrimenti
-#17-price_order: se inclusion_price è FALSE questo argomento deve essere 0. Se inclusion_price è TRUE, indica il numero di prezzi finali che bisogna prendere (se price_order=1 metterò prezzo al tempo t-1, se price_order=2 metterò prezzo al tempo t-1 e al tempo t-2 ecc...)
+#17-price_order: se inclusion_price ï¿½ FALSE questo argomento deve essere 0. Se inclusion_price ï¿½ TRUE, indica il numero di prezzi finali che bisogna prendere (se price_order=1 metterï¿½ prezzo al tempo t-1, se price_order=2 metterï¿½ prezzo al tempo t-1 e al tempo t-2 ecc...)
 #18-data_prices: matrice di dimension n x price_order contenente alla riga i-esima gli 'price_order' prezzi finali piu recenti disponibili al giorno i (ossia il prezzo del giorno i-2,i-3,...,i-1-price order). Questo argomento viene preso in considerazione solo se inclusion_price=TRUE
 #18-new_data_prices: vettore di lunghezza price_order contenente gli 'price_order' prezzi finali piu recenti disponibili al giorno che voglio prevedere (che essendo n+8, saranno dunque i prezzi del giorno n+6,n+5,..,n+7-price_order. Questo argomento viene preso in considerazione solo se inclusion_price=TRUE
 
 #Funzione che restituisce in output:
 #data_y: come da input
-#predicted_fun: una lista di lunghezza n di liste di lunghezza 2(in quanto le curve da prevedere sono 2: vendita e acquisto)  contenenti la previsione funzionale per quelle funzioni (tra le n del dataset) di cui è utile avere una previsione. Quindi per quasi tutte le funzioni del training set in quanto possono servire per calcolare la funzione s(quasi tutte perchè fittando tipo un AR(7) pointwise per esempio non ottieni la previsione delle prime 7 osservazioni e anche delle successive 7 in quanto MGS pubblica i risultati 7 giorni dopo) e per l-bar_v e l-bar_a funzioni del calibration che serviranno per calcolare gli NCS. Per tutte le altre funzioni la previsione sarà NA.
-#predicted_calibration_index_v:vettore  contenente gli indici delle funzioni del calibration per cui è stata calcolata la previsione per le curve di vendita. Tutti i valori saranno quindi compresi tra m+1 e m+l=n. ATTENTO: al momento sto differenziando tra predicted_calibration_index_v e predicted_calibration_index_a ma è piuttosto inutile in quanto poi potrò usare solo le funzioni per cui ho calcolato la previsione per entrambe le funzioni. I due index sono diversi solo se gli AR che fitto hanno ordine diverso per le curve di vendita e acquisto e se partial_calibration_rotation=TRUE credo. Insomma al momento lascio i due index separati ma sarebbe da sistemare
+#predicted_fun: una lista di lunghezza n di liste di lunghezza 2(in quanto le curve da prevedere sono 2: vendita e acquisto)  contenenti la previsione funzionale per quelle funzioni (tra le n del dataset) di cui ï¿½ utile avere una previsione. Quindi per quasi tutte le funzioni del training set in quanto possono servire per calcolare la funzione s(quasi tutte perchï¿½ fittando tipo un AR(7) pointwise per esempio non ottieni la previsione delle prime 7 osservazioni e anche delle successive 7 in quanto MGS pubblica i risultati 7 giorni dopo) e per l-bar_v e l-bar_a funzioni del calibration che serviranno per calcolare gli NCS. Per tutte le altre funzioni la previsione sarï¿½ NA.
+#predicted_calibration_index_v:vettore  contenente gli indici delle funzioni del calibration per cui ï¿½ stata calcolata la previsione per le curve di vendita. Tutti i valori saranno quindi compresi tra m+1 e m+l=n. ATTENTO: al momento sto differenziando tra predicted_calibration_index_v e predicted_calibration_index_a ma ï¿½ piuttosto inutile in quanto poi potrï¿½ usare solo le funzioni per cui ho calcolato la previsione per entrambe le funzioni. I due index sono diversi solo se gli AR che fitto hanno ordine diverso per le curve di vendita e acquisto e se partial_calibration_rotation=TRUE credo. Insomma al momento lascio i due index separati ma sarebbe da sistemare
 #predicted_calibration_index_a:corrispettivo per le curve di acquisto di 'predicted_calibration_index_v'.
 #m: come da input
 #predicted_fun_n_plus_8: una lista di lunghezza 1 formato da una lista di lunghezza 2 (in quanto le curve da prevedere sono 2: vendita e acquisto) contenente la previsione funzionale per la funzione n+8.
@@ -39,7 +41,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   #----------------------------------------------CHECKS AND INITIALIZATION---------------------------------------------------
   
   if (is.null(seed_split)==TRUE || (seed_split!=FALSE & is.numeric(seed_split)==FALSE)) stop("Argument 'seed_split' must be either FALSE or an integer.")
-  if(is.list(data_y)==FALSE || is.data.frame(data_y)==TRUE || is.list(data_y[[1]])==FALSE || is.data.frame(data_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che è una lista tecnicamente), 
+  if(is.list(data_y)==FALSE || is.data.frame(data_y)==TRUE || is.list(data_y[[1]])==FALSE || is.data.frame(data_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che ï¿½ una lista tecnicamente), 
     
     stop("data_y must be a list of lists. Specifically, data_y must be a list of 'n' lists. Each of the 'n' lists must be made up of 'p' lists. Each of the 'p' lists must contain a numeric vector expressing the evaluation of the function on a grid (whose length can be different in the 'p' dimensions).
          'n' (i.e. the sample size) must be greater or equal than 2. 'p'(i.e. the dimension of the multivariate function ) must be the same for all the multivariate functions.")} else{
@@ -92,7 +94,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
       cov_v=cbind(cov_v,curves_v[training-7-h,j]) 
     }
     
-    if (inclusion_price==TRUE){ #qui non ritardo la covariata di 2 giorni perchè data_prices è stato costruito in modo che alla riga i-esima ho già i prezzi ritardati di 2 giorni (insomma le covariate "giuste")
+    if (inclusion_price==TRUE){ #qui non ritardo la covariata di 2 giorni perchï¿½ data_prices ï¿½ stato costruito in modo che alla riga i-esima ho giï¿½ i prezzi ritardati di 2 giorni (insomma le covariate "giuste")
       for (h in 1:price_order){
         cov_v=cbind(cov_v,data_prices[training,h])
       }
@@ -117,7 +119,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
       cov_a=cbind(cov_a,curves_a[training-7-h,j])
     }
     
-    if (inclusion_price==TRUE){ #qui non ritardo la covariata di 2 giorni perchè data_prices è stato costruito in modo che alla riga i-esima ho già i prezzi ritardati di 2 giorni (insomma le covariate "giuste")
+    if (inclusion_price==TRUE){ #qui non ritardo la covariata di 2 giorni perchï¿½ data_prices ï¿½ stato costruito in modo che alla riga i-esima ho giï¿½ i prezzi ritardati di 2 giorni (insomma le covariate "giuste")
       for (h in 1:price_order){
         cov_a=cbind(cov_a,data_prices[training,h])
       }
@@ -179,13 +181,13 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   
   rm(cov_a,h,i,j)
   
-  #5 -- Ottengo obs_calibration_included (ossia il vettore contenente le posizioni delle osservazioni del training set di cui calcolo il NCS) e obs_calibration_excluded (il vettore contenente la posizione delle altre osservazioni del calibration set). Se b=1 obs_calibration_excluded è vuoto 
+  #5 -- Ottengo obs_calibration_included (ossia il vettore contenente le posizioni delle osservazioni del training set di cui calcolo il NCS) e obs_calibration_excluded (il vettore contenente la posizione delle altre osservazioni del calibration set). Se b=1 obs_calibration_excluded ï¿½ vuoto 
   
   obs_calibration_included=sort(calibration)[seq(from=b,to=l,by=b)] #saranno (l+1)/b-1
   obs_calibration_excluded=setdiff(calibration,obs_calibration_included)
   
   
-  #6 -- Calcolo le previsioni per gli (l+1)/b-1 elementi del calibration set le cui posizioni sono in obs_calibration_included, negli altri ci metterò NA
+  #6 -- Calcolo le previsioni per gli (l+1)/b-1 elementi del calibration set le cui posizioni sono in obs_calibration_included, negli altri ci metterï¿½ NA
   
   if(length(obs_calibration_excluded)!=0)  predicted_fun_matrix_v[obs_calibration_excluded,]=NA #inserisco NA nelle osservazioni di cui non faccio la previsione
   
@@ -236,7 +238,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   
   
   
-  #7 -- Calcolo le previsioni per la funzione al tempo n+8 (ATTENTO: la funzione è la n+8, quindi immagino proprio di essere al giorno n+7 e di voler prevedere le curve per il giorno successivo, ossia n+8. Quindi nel codice qui sotto le covariate saranno le funzioni al tempo l,l-1,l-2 ecc.. senza il consueto ritardo di tot giorni!)
+  #7 -- Calcolo le previsioni per la funzione al tempo n+8 (ATTENTO: la funzione ï¿½ la n+8, quindi immagino proprio di essere al giorno n+7 e di voler prevedere le curve per il giorno successivo, ossia n+8. Quindi nel codice qui sotto le covariate saranno le funzioni al tempo l,l-1,l-2 ecc.. senza il consueto ritardo di tot giorni!)
   predicted_fun_n_plus_8_v=numeric(grid_size[1])
   predicted_fun_n_plus_8_a=numeric(grid_size[2])
   
@@ -283,7 +285,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   #8 -- Rendo monotone le mie previsioni in predicted_fun_matrix_v e predicted_fun_matrix_a 
   
   
-  no_mon_curves_v=(1:nrow(predicted_fun_matrix_v))[apply(predicted_fun_matrix_v,1, function(x) !all(diff(x)>=0))] #posizione delle curve che non sono già monotone
+  no_mon_curves_v=(1:nrow(predicted_fun_matrix_v))[apply(predicted_fun_matrix_v,1, function(x) !all(diff(x)>=0))] #posizione delle curve che non sono giï¿½ monotone
   no_mon_curves_v=no_mon_curves_v[!is.na(no_mon_curves_v)]  
   
   for (i in no_mon_curves_v){  
@@ -294,7 +296,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
     }
     
     
-    for (j in which(points_tbc)){ #j quindi può andare da 2 a grid_size[1], indicherà la posizione dei punti che stanno più in basso rispetto al punto più in alto tra quelli che stanno a sinistra
+    for (j in which(points_tbc)){ #j quindi puï¿½ andare da 2 a grid_size[1], indicherï¿½ la posizione dei punti che stanno piï¿½ in basso rispetto al punto piï¿½ in alto tra quelli che stanno a sinistra
       
       y1=max(predicted_fun_matrix_v[i,1:(j-1)])
       x1=common_grid[which.max(predicted_fun_matrix_v[i,1:(j-1)])]
@@ -322,7 +324,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   
   
   
-  no_mon_curves_a=(1:nrow(predicted_fun_matrix_a))[apply(predicted_fun_matrix_a,1, function(x) !all(diff(x)<=0))] #posizione delle curve che non sono già monotone
+  no_mon_curves_a=(1:nrow(predicted_fun_matrix_a))[apply(predicted_fun_matrix_a,1, function(x) !all(diff(x)<=0))] #posizione delle curve che non sono giï¿½ monotone
   no_mon_curves_a=no_mon_curves_a[!is.na(no_mon_curves_a)]  
   
   for (i in no_mon_curves_a){  
@@ -333,7 +335,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
     }
     
     
-    for (j in which(points_tbc)){ #j quindi può andare da 2 a grid_size[2], indicherà la posizione dei punti che stanno più in basso rispetto al punto più in alto tra quelli che stanno a sinistra
+    for (j in which(points_tbc)){ #j quindi puï¿½ andare da 2 a grid_size[2], indicherï¿½ la posizione dei punti che stanno piï¿½ in basso rispetto al punto piï¿½ in alto tra quelli che stanno a sinistra
       
       y1=min(predicted_fun_matrix_a[i,1:(j-1)])
       x1=common_grid[which.min(predicted_fun_matrix_a[i,1:(j-1)])]
@@ -355,7 +357,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
   
   
   
-  #9 -- Rendo monotone le previsioni al tempo n+8 (se non lo sono già)
+  #9 -- Rendo monotone le previsioni al tempo n+8 (se non lo sono giï¿½)
   
   if(!all(diff(predicted_fun_n_plus_8_v)>=0)){
     
@@ -365,7 +367,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
     }
     
     
-    for (j in which(points_tbc)){ #j quindi può andare da 2 a grid_size[1], indicherà la posizione dei punti che stanno più in basso rispetto al punto più in alto tra quelli che stanno a sinistra
+    for (j in which(points_tbc)){ #j quindi puï¿½ andare da 2 a grid_size[1], indicherï¿½ la posizione dei punti che stanno piï¿½ in basso rispetto al punto piï¿½ in alto tra quelli che stanno a sinistra
       
       y1=max(predicted_fun_n_plus_8_v[1:(j-1)])
       x1=common_grid[which.max(predicted_fun_n_plus_8_v[1:(j-1)])]
@@ -399,7 +401,7 @@ point_prediction_conformal_TS_fstep_ppnaive_withpr_GS=function(data_y, l, b=1, s
     }
     
     
-    for (j in which(points_tbc)){ #j quindi può andare da 2 a grid_size[2], indicherà la posizione dei punti che stanno più in basso rispetto al punto più in alto tra quelli che stanno a sinistra
+    for (j in which(points_tbc)){ #j quindi puï¿½ andare da 2 a grid_size[2], indicherï¿½ la posizione dei punti che stanno piï¿½ in basso rispetto al punto piï¿½ in alto tra quelli che stanno a sinistra
       
       y1=min(predicted_fun_n_plus_8_a[1:(j-1)])
       x1=common_grid[which.min(predicted_fun_n_plus_8_a[1:(j-1)])]
@@ -496,7 +498,7 @@ functional_conformal_prediction_TS_fstep_ppnaive_GS=function(data_y,hat_y,t_valu
     tau=stats::runif(n=1,min=0,max=1)
   }
   
-  if(is.list(data_y)==FALSE || is.data.frame(data_y)==TRUE || is.list(data_y[[1]])==FALSE || is.data.frame(data_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che è una lista tecnicamente), 
+  if(is.list(data_y)==FALSE || is.data.frame(data_y)==TRUE || is.list(data_y[[1]])==FALSE || is.data.frame(data_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che ï¿½ una lista tecnicamente), 
     
     stop("data_y must be a list of lists. Specifically, data_y must be a list of 'n' lists. Each of the 'n' lists must be made up of 'p' lists. Each of the 'p' lists must contain a numeric vector expressing the evaluation of the function on a grid (whose length can be different in the 'p' dimensions).
          'n' (i.e. the sample size) must be greater or equal than 2. 'p'(i.e. the dimension of the multivariate function ) must be the same for all the multivariate functions.")} else{
@@ -506,7 +508,7 @@ functional_conformal_prediction_TS_fstep_ppnaive_GS=function(data_y,hat_y,t_valu
            
   }
   
-  if(is.list(hat_y)==FALSE || is.data.frame(hat_y)==TRUE || is.list(hat_y[[1]])==FALSE || is.data.frame(hat_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che è una lista tecnicamente), 
+  if(is.list(hat_y)==FALSE || is.data.frame(hat_y)==TRUE || is.list(hat_y[[1]])==FALSE || is.data.frame(hat_y[[1]])==TRUE){ #le prime due condizioni son per assicurarsi che sia una lista nel senso di "list" e non un dataframe (che ï¿½ una lista tecnicamente), 
     
     stop("hat_y must be a list of lists. Specifically, hat_y must be a list of 'n' lists. Each of the 'n' lists must be made up of 'p' lists. Each of the 'p' lists must contain a numeric vector expressing the evaluation of the function on a grid (whose length can be different in the 'p' dimensions).
          'n' (i.e. the sample size) must be greater or equal than 2. 'p'(i.e. the dimension of the multivariate function ) must be the same for all the multivariate functions.") }
@@ -650,7 +652,7 @@ computing_s_regression=function(vec_residual,type,alpha,tau,grid_size){
 
 
 
-#funzione 'computation_conformal_prediction_set_fstep_ppnaive' : qua hat_y è la previsione della funzione n+1!
+#funzione 'computation_conformal_prediction_set_fstep_ppnaive' : qua hat_y ï¿½ la previsione della funzione n+1!
 
 computation_conformal_prediction_set_fstep_ppnaive=function(hat_y,observed_y=NULL,k_s,s,alpha,randomized=FALSE,extremes_are_included=TRUE){
   

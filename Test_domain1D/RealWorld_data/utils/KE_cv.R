@@ -1,3 +1,5 @@
+#function to perform cv on KE and KEI
+
 cv_EK = function(X,   #passo normale: righe(valutazioni)xcolonne(istanti)
                  grid_eval,
                  p_vector,

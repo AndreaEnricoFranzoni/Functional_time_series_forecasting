@@ -3,13 +3,18 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Predicted curves plot
-###
+#############################################################################################################
+### Overlapping predicted log-curves plot, for each one of the predictors, for each of the days predicted ###
+#############################################################################################################
+
+
+#put here the path of the local copy of the directory
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
 
 #if you want to save the result in a folder 
 save_res = TRUE
-
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+format = ".png"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
 
 
@@ -17,9 +22,10 @@ dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
 #in which folder the result of the prediction are
 path_res_pred = paste0(dir_res,"/results_prediction_log")
 #where to store the results, in case (the images)
-path_stor_res = paste0(paste0(dir_res,"/results_plot_predictions_log"))  #saving boxplots
-format = ".png"
+path_stor_res = paste0(paste0(dir_res,"/results_plot_predictions_log")) 
 
+
+#predictors used
 prediction_method = c("PPC", "KE", "KEI", "MP", "NP", "CC")
 
 #load the files with the predictions
@@ -30,7 +36,7 @@ for (pred_met in prediction_method) {
   }
 }
 
-
+#other useful packages for plot
 library("data.table")
 library(ggplot2)
 library(gridExtra)

@@ -16,7 +16,7 @@ Then, the comparisons:
 -   *comparison_solvers.R*: comparing the predictions using ex_solver and gep_solver: same results
 -   *analysis_valid_err_PPC_cv_alpha.R*: for each process mean of the validation errors for each element of the $\alpha$ input space, selecting $k$ with cv and with explanatory power criterion
 -   *comparison_valid_errors_alpha.R*: plotting then $\alpha$ validation errors dynamic
--   *Analysis_PPC.R*: collecting the best $\alpha$, the best $k$ and the retained explanatory power of the PPC predictor, investigating their distributions
+-   *Analysis_PPC.R*: collecting the best $\alpha$, the best $k$ and the retained explanatory power of the PPC predictor, investigating their distributions, thorugh barcharts and boxplots
 
 Results:
 

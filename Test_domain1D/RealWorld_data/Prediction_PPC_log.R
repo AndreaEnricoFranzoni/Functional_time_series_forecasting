@@ -3,17 +3,25 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
+
+##################################################################
+#### Computing PPC log-prediction as indicated in the readme  ####
+##################################################################
+
+
 library(PPCKO)
 
 
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction_log"
-name_folder_res = "/PPC"
 
 #if you want to save the result 
 save_res = TRUE
+
+
 #where to store the results
+dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction_log"
+name_folder_res = "/PPC"
 path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)  
 
 

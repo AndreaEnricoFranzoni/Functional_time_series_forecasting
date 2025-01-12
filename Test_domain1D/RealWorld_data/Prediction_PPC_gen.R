@@ -6,14 +6,21 @@ set.seed(23032000)
 library(PPCKO)
 
 
-#change here
+
+##############################################################################
+#### Computing PPC with gep_solver prediction as indicated in the readme  ####
+##############################################################################
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction"
-name_folder_res = "/PPC_gen"
 
 #if you want to save the result 
 save_res = TRUE
+
 #where to store the results
+dir_stor_res = "/Test_domain1D/RealWorld_data/results/results_prediction"
+name_folder_res = "/PPC_gen"
 path_stor_res = paste0(paste0(dir_w,dir_stor_res),name_folder_res)  
 
 

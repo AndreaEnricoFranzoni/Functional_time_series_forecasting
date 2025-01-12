@@ -3,16 +3,21 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Computing the prediction errors for the predictions made
+
+################################################################
+### Computing the prediction errors for the predictions made ###
+################################################################
+
+
+#put here the path of the local copy of the directory
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
 
 
 #if you want to save the result in a folder 
 save_res = TRUE
 format = ".jpg"
-
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain1D/RealWorld_data/results")
-
 
 
 #in which folder the result of the prediction are
@@ -21,6 +26,8 @@ path_res_pred = paste0(dir_res,"/results_prediction")
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_errors"))  
 
+
+#predictors used
 prediction_method = c("PPC", "PPC_exp_pow", "PPC_gen", "KE", "KEI", "MP", "NP", "CC")
 
 for (pred_met in prediction_method) {
@@ -57,7 +64,7 @@ load(paste0(dir_w,"/Test_domain1D/RealWorld_data/utils/data/MGS_cg_260419_310120
   first_prediction <- 98  #first day that I predict (counting from the beginning)
 }
 
-
+#errors
 {
   en_offer_PPC  = numeric(tot_pred)
   rn_offer_PPC  = numeric(tot_pred)

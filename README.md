@@ -3,7 +3,7 @@ The repo contains tests conducted on Functional Time Series (FTS) forecasting.
 
 Particular focus has been put on [Kargin-Onatski algorithm](https://core.ac.uk/download/pdf/82625156.pdf) algorithm, and its implementation in the package `PPCKO`, [here](https://github.com/AndreaEnricoFranzoni/PPCforAutoregressiveOperator). Tests for its predictive and computational performances have been performed. 
 
-Specifically, PPC predictor has been compared to other predictors. Forecasting has been performed for curves and surfaces FTS domain data; data have been generate synthetically but also come from real-world scenarios. We resume the contents of the folders here, in each one of the folders other readme files describe their content more deeply. The tests results, reported and commented in ['Principal Predictive Components for estimating an autoregressive operator'](#ref-pacsrep), are stored in the results folder.
+Specifically, PPC predictor has been compared to other predictors. Forecasting has been performed for curves and surfaces FTS domain data; data have been generate synthetically but also come from real-world scenarios. We resume the contents of the repo here, in each one of the folders others README files describe their content more deeply. The tests results, reported and commented in ['Principal Predictive Components for estimating an autoregressive operator'](#ref-pacsrep), are stored in the various results folder.
 
 In each script: 
 

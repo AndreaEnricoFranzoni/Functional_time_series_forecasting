@@ -3,12 +3,14 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
+################################################################ 
+##  Simple script for comparing normal and log curve visually ## 
+################################################################ 
 
 
-#change here
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-
-
 
 
 # ----- data -----
@@ -50,7 +52,6 @@ data <- data.frame(
                  "Log transformed demand price"), each = length(x_grid)) 
 )
 
-# Plottare le funzioni sovrapposte
 plt=ggplot(data, aes(x = x, y = y, color = Curve)) +
   geom_line(size = 1) +
   labs(
@@ -78,7 +79,7 @@ data <- data.frame(
                 "Log transformed demand price"), each = length(x_grid)) 
 )
 
-# Plottare le funzioni sovrapposte
+
 plt=ggplot(data, aes(x = x, y = y, color = Curve)) +
   geom_line(size = 1) +
   labs(
