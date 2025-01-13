@@ -3,9 +3,17 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
+
+
+###################################################################################
+#### Computing PPC prediction, using exp pow for k as indicated in the readme  ####
+###################################################################################
+
+
 library(PPCKO)
 
-#change here
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
 #save res

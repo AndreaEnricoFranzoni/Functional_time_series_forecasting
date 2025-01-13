@@ -1,4 +1,4 @@
-
+# COPYRIGHT BY AJROLDI N.
 #'
 #' Functional Autoregressive Process of order p
 #'

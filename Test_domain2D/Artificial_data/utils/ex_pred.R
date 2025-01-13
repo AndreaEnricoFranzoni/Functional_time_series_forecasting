@@ -1,4 +1,4 @@
-# ex pred: thanks to Ajroldi
+# COPYRIGHT BY AJROLDI N.
 
 ex_prediction_2D_FAR_oracle = function(data_y,
                                              indexes_not_NA=NULL,

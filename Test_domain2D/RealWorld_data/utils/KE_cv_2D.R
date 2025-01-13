@@ -1,7 +1,9 @@
+#cv for EK and EKI
+
 cv_EK_2d = function(X,   
                     grid_eval1,
                     grid_eval2,
-                    p_vector,
+                    p_vector,   #directions input space
                     improved=FALSE,
                     idx_not_nan = NULL
                  )

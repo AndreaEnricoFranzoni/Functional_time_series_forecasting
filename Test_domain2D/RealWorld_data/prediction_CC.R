@@ -4,8 +4,11 @@ cat("\014")
 
 set.seed(23032000)
 
+#############################################################
+#### Computing CC prediction as indicated in the readme  ####
+#############################################################
 
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
 #save res

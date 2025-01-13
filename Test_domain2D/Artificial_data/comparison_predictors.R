@@ -3,7 +3,14 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
-#change here
+
+
+############################################################
+#### Prediction evaluation as indicated in the readme   ####
+############################################################
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
 # save results
@@ -12,7 +19,7 @@ format = ".jpg"
 path_res_pred = paste0(dir_w,"/Test_domain2D/Artificial_data/results/results_prediction")
 path_save_res = paste0(dir_w,"/Test_domain2D/Artificial_data/results/results_plots_err")
 
-
+# predictors used
 prediction_method = c("PPC", "EK", "EKI", "MP", "NP", "EX")
 
 #load the files with the predictions
@@ -23,6 +30,7 @@ for (pred_met in prediction_method) {
   }
 }
 
+#evaluating errors
 ENs = c(err_PPC_en,err_EK_en,err_EKI_en,err_MP_en,err_NP_en,err_EX_en)
 
 N_en = length(err_PPC_en)

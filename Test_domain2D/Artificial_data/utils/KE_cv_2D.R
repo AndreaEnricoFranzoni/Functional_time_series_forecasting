@@ -1,7 +1,10 @@
+# to perform cv on 2d EK
+
+
 cv_EK_2d = function(X,   
                     grid_eval1,
                     grid_eval2,
-                    p_vector,
+                    p_vector,   #number of directions
                     improved=FALSE
                  )
 {

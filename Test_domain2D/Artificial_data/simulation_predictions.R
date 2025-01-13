@@ -1,27 +1,33 @@
 rm(list=ls())
 graphics.off()
 cat("\014")
+set.seed(23032000)
+
+
+
+###########################################################
+#### Computing predictions as indicated in the readme  ####
+###########################################################
 
 library(PPCKO)
 
 
-set.seed(23032000)
-
-#change here
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-
-# load auxiliary functions
-{
-  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/far_1_2d.R"))
-  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/ex_pred.R"))
-  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/EstimatedKernel_predictor_2D.R"))       #load parameter to generate data according to a strategy
-  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/KE_cv_2D.R"))       #load parameter to generate data according to a strategy
-  
-}
 
 # if storing results
 save_res = TRUE
 path_store_res = paste0(dir_w,"/Test_domain2D/Artificial_Data/results/results_prediction")
+
+# load auxiliary functions to generate the data and perform EK prediction
+{
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/far_1_2d.R"))
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/ex_pred.R"))
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/EstimatedKernel_predictor_2D.R"))       
+  source(paste0(dir_w,"/Test_domain2D/Artificial_data/utils/KE_cv_2D.R"))       
+}
+
+
 
 
 ## Data parameters
@@ -39,6 +45,12 @@ left_ex_x2  <- 0
 right_ex_x2 <- 1
 dim_grid_x1 <- 20
 dim_grid_x2 <- 20
+
+
+############### The code to generate FAR(1) of surfaces using tensor products
+############### gently given by Nicolò Ajroldi for 
+############### "Conformal prediction bands for two-dimensional functional time series" by
+############### Ajroldi, N., Diquigiovanni, J., Fontana, M. and Vantini, S. 
 
 
 
@@ -175,7 +187,8 @@ for (i in 1:tot_iter) {
                          right_extreme_x1 = right_ex_x1,
                          left_extreme_x2 = left_ex_x2,
                          right_extreme_x2 = right_ex_x2,
-                         err_ret = 0)
+                         err_ret = 0,
+                         ex_solver = FALSE)
   
   prediction = predictor$`One-step ahead prediction`
   pred_PPC[[i]] = list(Prediction = prediction, Alpha = predictor$Alpha, N_PPCs = predictor$`Number of PPCs retained`, Exp_Pow = predictor$`Explanatory power PPCs` )

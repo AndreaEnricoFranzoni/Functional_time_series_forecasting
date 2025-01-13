@@ -4,14 +4,20 @@ cat("\014")
 set.seed(23032000)
 
 
-### Comparison between solvers
+################################################
+#### Compare PPC ex_solver and gep_solver   ####
+################################################
 
-
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
-dir_res = paste0(dir_w,"/Test_domain2D/RealWorld_data/results")
 
+# if saving results
 save_res = TRUE
 format = ".jpg"
+
+dir_res = paste0(dir_w,"/Test_domain2D/RealWorld_data/results")
+
+
 
 #in which folder the result of the prediction are
 path_res_pred = paste0(dir_res,"/results_prediction")

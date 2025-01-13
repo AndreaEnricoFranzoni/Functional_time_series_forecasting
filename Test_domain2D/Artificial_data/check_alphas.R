@@ -3,43 +3,57 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
-#change here
+
+
+###################################################
+#### Checking the high reg parameter retained  ####
+###################################################
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
 
 # save results
 save_res = TRUE
 format = ".jpg"
 path_res_pred = paste0(dir_w,"/Test_domain2D/Artificial_data/results/results_prediction")
 
+
+# load PPC pred
 files <- list.files(path = paste0(path_res_pred,paste0("/PPC")), full.names = TRUE)
 for (file in files) {
   load(file)}
 
+
+# big unusual alphas
 strange_alphas=c() 
 for (i in 1:length(pred_PPC)) {
   if(pred_PPC[[i]]$Alpha > 10){strange_alphas=c(strange_alphas,i)}
 }
 
+
+# if something strange with their errors
 summary(err_PPC_en)
 for (i in strange_alphas) {
   print(err_PPC_en[i])
 }
-
 
 summary(err_PPC_rn)
 for (i in strange_alphas) {
   print(err_PPC_rn[i])
 }
 
-
+# if something strange with their k
 for (i in strange_alphas) {
   print(pred_PPC[[i]]$N_PPCs)
 }
 
+
+# if something strange with their exp pow
 for (i in strange_alphas) {
   print(pred_PPC[[i]]$Exp_Pow)
 }
-
 
 exp_pow = numeric(length = length(pred_PPC))
 
@@ -52,7 +66,7 @@ summary(exp_pow)
 
 
 
-
+# DOing a cv on alpha, k via exp pow criterion to double check since all of them bad for exp pow retained
 
 library(PPCKO)
 

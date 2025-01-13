@@ -3,9 +3,13 @@ graphics.off()
 cat("\014")
 
 set.seed(23032000)
-library(PPCKO)
 
-#change here
+
+#############################################################
+#### Computing KE prediction as indicated in the readme  ####
+#############################################################
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
 #save res
@@ -24,8 +28,8 @@ path_store_res = paste0(dir_res,folder_res)
 
 
 #load functions to use KE
-source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/EstimatedKernel_predictor_2D.R"))       #load parameter to generate data according to a strategy
-source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/KE_cv_2D.R"))       #load parameter to generate data according to a strategy
+source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/EstimatedKernel_predictor_2D.R"))      
+source(paste0(dir_w,"/Test_domain2D/RealWorld_data/utils/KE_cv_2D.R"))       
 
 
 

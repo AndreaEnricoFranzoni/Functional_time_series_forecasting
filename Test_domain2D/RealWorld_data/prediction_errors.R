@@ -4,15 +4,27 @@ cat("\014")
 
 set.seed(23032000)
 
+#####################################
+#### Computing prediction errors ####
+#####################################
 
+
+library(PPCKO)
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
+#if you want to save the result 
+save_res = TRUE
+
+
 dir_res = paste0(dir_w,"/Test_domain2D/RealWorld_data/results")
 
 
 #in which folder the result of the prediction are
 path_res_pred = paste0(dir_res,"/results_prediction")
-#if you want to save the result 
-save_res = TRUE
+
 
 #where to store the results
 path_stor_res = paste0(paste0(dir_res,"/results_prediction_errors"))  

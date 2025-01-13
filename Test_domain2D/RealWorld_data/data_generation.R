@@ -4,7 +4,13 @@ cat("\014")
 
 set.seed(23032000)
 
-#change here
+
+#######################################################
+#### generating the surface FTS for the two zones  ####
+#######################################################
+
+
+#put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 
 #where the data are

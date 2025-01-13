@@ -3,18 +3,24 @@ graphics.off()
 cat("\014")
 set.seed(23032000)
 
-### Analysis of results of PPC forecasting: looking for regularization parameter, number of PPCs and explanatory power behavior
+########################################################################################################################################
+### Analysis of results of PPC forecasting: looking for regularization parameter, number of PPCs and explanatory power behavior  #######
+########################################################################################################################################
 
-#if you want to save the result in a folder 
+#put here the path of the local copy of the directory
+dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
+
+#if you want to save the results 
 save_res = TRUE
 format_file = ".jpg"
-
-dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 dir_res = paste0(dir_w,"/Test_domain2D/Artificial_data/results")
 
 
 #in which folder the result of the PPC predictions are
 path_res_pred = paste0(dir_res,"/results_prediction/PPC")
+#where to store the results, in case
+path_stor_res = paste0(paste0(dir_res,"/results_analysis_PPC"))  #saving boxplots
+
 
 # upload reults
 files <- list.files(path = path_res_pred, full.names = TRUE)
@@ -24,11 +30,6 @@ for (file in files) {
 
 
 tot_run = length(pred_PPC)
-
-
-
-#where to store the results, in case
-path_stor_res = paste0(paste0(dir_res,"/results_analysis_PPC"))  #saving boxplots
 
 
 #reg param that have been tested during the predictions
