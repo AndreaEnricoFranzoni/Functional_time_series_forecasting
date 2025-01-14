@@ -60,5 +60,5 @@ Results:
 
 Helpers:
 
--   `utilsv: contains the data (MGS_cg_260419_310120_data.Rdata), functions to perform KE and KEI predictions (courtesy of Ajroldi N.) and the code (subfolder *CC_code*) for CC predictor (courtesy og Diquigiovanni J.) 
+-   `utils`: contains the data ("MGS_cg_260419_310120_data.Rdata"), functions to perform KE and KEI predictions (courtesy of Ajroldi N.) and the code (subfolder `CC_code`) for CC predictor (courtesy of Diquigiovanni J.) 
 -   `Compare_normal_log_curve.R`: script to visually compare curves and their log transformation
