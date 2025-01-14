@@ -1,4 +1,4 @@
-**Test on synthetically generated curves FTS**
+# **Test on synthetically generated curves FTS**
 
 Data are generated as in [Didericksen, Kokoszka and Zhang](#ref-kokoskza) (see main READ.ME). 8 different processes are generated (4 different kernels, each one with 2 different norms magnitude), with 100 time instants, 50 burn-in iterations, 200 discrete evaluations of the curve. For each one of them: use the first b instants as available data, b+1 as test set: evaluate the prediction loss as L2 norm estimate ($E_n$) and L1 norm ($R_n$). $b \in \{50, \dots, 99\}$. Evaluate mean and standard deviation of both $E_n$ and $R_n$, other than their boxplots. Predictions are done using:
 
