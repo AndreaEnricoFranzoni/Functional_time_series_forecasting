@@ -21,4 +21,4 @@ Results:
 
 Helpers:
 
--   `utils`: contains functions to generate surfaces FAR(1) and doing prediction with the process generating data, to perform KE and KEI predictions on surfaces FTS ( all taken from Ajroldi N.)
+-   `utils`: contains functions to generate surfaces FAR(1) and doing prediction with the process generating data, to perform KE and KEI predictions on surfaces FTS (courtesy of Ajroldi N.)
