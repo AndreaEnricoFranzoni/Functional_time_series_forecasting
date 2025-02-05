@@ -115,7 +115,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, mouth", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -156,7 +156,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, mouth, one differentiation", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -196,7 +196,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, mouth, two differentiations", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -236,7 +236,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, center", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -276,7 +276,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, center, one differentiation", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -315,7 +315,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction, center, two differentiations", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -358,7 +358,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, mouth", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -396,7 +396,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, mouth, one differentiation", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -435,7 +435,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, mouth, two differentiations", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -474,7 +474,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, center", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -512,7 +512,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, center, one differentiation", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -550,7 +550,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions, center, two differentiations", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -577,7 +577,7 @@ dati <- data.frame(exp_pow = exp_pow_used_mou)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, mouth", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -602,7 +602,7 @@ dati <- data.frame(exp_pow = exp_pow_used_mou_d1)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, mouth, one differentiation", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -626,7 +626,7 @@ dati <- data.frame(exp_pow = exp_pow_used_mou_d2)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, mouth, two differentiations", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -655,7 +655,7 @@ dati <- data.frame(exp_pow = exp_pow_used_cen)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, center", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -680,7 +680,7 @@ dati <- data.frame(exp_pow = exp_pow_used_cen_d1)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, center, one differentiation", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -704,7 +704,7 @@ dati <- data.frame(exp_pow = exp_pow_used_cen_d2)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions, center, two differentiations", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())

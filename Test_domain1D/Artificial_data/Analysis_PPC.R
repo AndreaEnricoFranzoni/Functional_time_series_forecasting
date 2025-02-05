@@ -92,7 +92,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions", x = "Regularization parameter", y = "Times alpha being used") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -133,7 +133,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC predictions", x = "Number PPCs retained", y = "Time k beign retained") +
+  labs(title = "", x = "Number PPCs retained", y = "Time k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -159,7 +159,7 @@ dati <- data.frame(exp_pow = exp_pow_used)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0, 1)) +
-  labs(title = "PPC predictions", y = "Explanatory power retained") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())

@@ -39,6 +39,10 @@ source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R")) 
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       #load parameter to generate data according to a strategy
 
 
+first_instant_train_set = burnin
+last_instant_train_set  = n-1
+dim_train_set = first_instant_train_set:last_instant_train_set
+
 #PPCKO parameters 
 {
   id_CV_ko      <- "CV"           #Ko algorithm
@@ -115,13 +119,13 @@ source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data Gaussian Kernel, norm 0.5 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -130,14 +134,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_gau_0_5[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs` )
-  err_PPC_gen_gau_0_5_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_gau_0_5_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_gau_0_5[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs` )
+  err_PPC_gen_gau_0_5_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_gau_0_5_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -173,13 +177,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data Gaussian Kernel, norm 0.8 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -188,14 +192,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_gau_0_8[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_gau_0_8_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_gau_0_8_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_gau_0_8[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_gau_0_8_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_gau_0_8_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -209,7 +213,7 @@ if(save_res){
 
 
 
-
+set.seed(29011999)
 # ----- data generation idenity Kernel norm 0.5 -----
 {
   #feats of data
@@ -231,13 +235,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data identity Kernel, norm 0.5 "
 for (b in 1:N) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -246,14 +250,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_id_0_5[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_id_0_5_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_id_0_5_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_id_0_5[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_id_0_5_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_id_0_5_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -267,7 +271,7 @@ if(save_res){
 
 
 
-
+set.seed(23032000)
 # ----- data generation idenity Kernel norm 0.8 -----
 {
   #feats of data
@@ -289,13 +293,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data identity Kernel, norm 0.8 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -304,14 +308,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_id_0_8[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_id_0_8_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_id_0_8_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_id_0_8[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_id_0_8_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_id_0_8_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -347,13 +351,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data sloping plane t Kernel, norm 0.5 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -362,14 +366,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_spt_0_5[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_spt_0_5_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_spt_0_5_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_spt_0_5[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_spt_0_5_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_spt_0_5_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -408,10 +412,10 @@ if(save_res){
 
 string_message = "
                   PPC gen prediction data sloping plane t Kernel, norm 0.8 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -420,14 +424,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_spt_0_8[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_spt_0_8_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_spt_0_8_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_spt_0_8[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_spt_0_8_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_spt_0_8_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -463,13 +467,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data sloping plane s Kernel, norm 0.5 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -478,14 +482,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_sps_0_5[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_sps_0_5_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_sps_0_5_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_sps_0_5[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_sps_0_5_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_sps_0_5_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 
@@ -521,13 +525,13 @@ if(save_res){
   X.sample <- far_1_1D(kernel_id = id_kernel, noise_id = id_noise, n = n, t.grid = t.grid, a = a, burnin = burnin)
 }
 
-
+counter = 1
 string_message = "
                   PPC gen prediction data sloping plane s Kernel, norm 0.8 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
-  train_set = X.sample[,1:(N-1+b)]
-  valid_set = X.sample[,N+b] 
+  train_set = X.sample[,1:b]
+  valid_set = X.sample[,b+1] 
   
   PPC_predictor = PPC_KO( X = train_set,
                           id_CV = id_CV_ko,
@@ -536,14 +540,14 @@ for (b in 1:N) {
                           right_extreme = right_extreme,
                           ex_solver = ex_slv)
   
-  prediction_PPC_gen_sps_0_8[[b]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
-  err_PPC_gen_sps_0_8_en[b] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
-  err_PPC_gen_sps_0_8_rn[b] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  prediction_PPC_gen_sps_0_8[[counter]] = list(Prediction = PPC_predictor$`One-step ahead prediction`, Alpha = PPC_predictor$Alpha, N_PPCs = PPC_predictor$`Number of PPCs retained`, Exp_Pow = PPC_predictor$`Explanatory power PPCs`  )
+  err_PPC_gen_sps_0_8_en[counter] = En(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
+  err_PPC_gen_sps_0_8_rn[counter] = Rn(PPC_predictor$`One-step ahead prediction`,valid_set,t.grid)
   
   
   message <- sprintf(paste0(string_message,"/ Progress: %d/%d
-  ") , b, N)
-  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), b)
+  ") , counter, N)
+  setTxtProgressBar(txtProgressBar(min = 1, max = N, style = 3), counter)
   cat("\r", message)
 }
 

@@ -29,7 +29,12 @@ for (pred_met in prediction_method) {
     load(file)
   }
 }
+prediction_method = c("PPC", "KE", "KEI", "MP", "NP", "EX")
 
+y_min = 0
+y_max = 10
+
+  
 #evaluating errors
 ENs = c(err_PPC_en,err_EK_en,err_EKI_en,err_MP_en,err_NP_en,err_EX_en)
 
@@ -86,11 +91,12 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot() + ggtitle("Prediction error, 2D domain synthetic data")
+  geom_boxplot() + ggtitle("Prediction error, synthetic surfaces FTS")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max)  +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -99,7 +105,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -130,11 +136,12 @@ Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, 2D domain synthetic data")
+  geom_boxplot()  + ggtitle("Prediction error, synthetic surfaces FTS")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max)  +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -143,7 +150,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 

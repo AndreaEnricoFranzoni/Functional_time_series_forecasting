@@ -81,7 +81,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction log-offer", x = "Regularization parameter", y = "Count") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -123,7 +123,7 @@ alpha_count$Alpha_num = as.numeric(alpha_count$Alpha)
 
 barchart_alpha = ggplot(alpha_count, aes(x = reorder(Alpha,Alpha_num), y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction log-demand", x = "Regularization parameter", y = "Count") +
+  labs(title = "", x = "Regularization parameter", y = "Times alpha being selected") +
   theme_minimal()
 print(barchart_alpha)
 
@@ -164,7 +164,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction log-offer", x = "Number PPCs retained", y = "Count") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -205,7 +205,7 @@ k_count <- data.frame(
 
 barchart_k = ggplot(k_count, aes(x = Number_PPCs, y = Count)) +
   geom_bar(stat = "identity", fill = "steelblue") +
-  labs(title = "PPC Prediction log-demand", x = "Number PPCs retained", y = "Count") +
+  labs(title = "", x = "Number PPCs retained", y = "Times k being retained") +
   theme_minimal()
 print(barchart_k)
 
@@ -230,7 +230,7 @@ dati <- data.frame(exp_pow = exp_pow_offer)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0.999, 1)) +
-  labs(title = "PPC log-offer predictions", y = "Explanatory power") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
@@ -258,7 +258,7 @@ dati <- data.frame(exp_pow = exp_pow_demand)
 bp_exp_pow = ggplot(dati, aes(y = exp_pow)) +
   geom_boxplot(fill = "lightblue") +
   scale_y_continuous(limits = c(0.992, 1)) +
-  labs(title = "PPC log-demand predictions", y = "Explanatory power") +
+  labs(title = "", y = "Explanatory power retained") +
   theme_minimal() + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())

@@ -12,7 +12,7 @@ set.seed(23032000)
 #put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 #if you want to save the result 
-save_res = FALSE
+save_res = TRUE
 
 
 #where to store the results
@@ -38,7 +38,9 @@ source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/far_1_1d.R"))         
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/prediction_error.R")) #load functions to evaluate the prediction error
 source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       #load parameter to generate data according to a strategy
 
-
+first_instant_train_set = burnin
+last_instant_train_set  = n-1
+dim_train_set = first_instant_train_set:last_instant_train_set
 
 
 #storing predictions
@@ -93,10 +95,10 @@ source(paste0(dir_w,"/Test_domain1D/Artificial_data/utils/data_param.R"))       
 }
 
 
-
+counter = 1
 string_message = "
                   NP prediction data Gaussian Kernel, norm 0.5 "
-for (b in 1:N) {
+for (b in dim_train_set) {
   
   train_set = X.sample[,1:(N-1+b)]      #train set
   valid_set = X.sample[,N+b]            #validation set
@@ -174,7 +176,7 @@ if(save_res){
 
 
 
-
+set.seed(29011999)
 # ----- data generation Identity Kernel norm 0.5 -----
 {
   #feats of data
@@ -225,7 +227,7 @@ if(save_res){
 
 
 
-
+set.seed(23032000)
 # ----- data generation Identity Kernel norm 0.8 -----
 {
   #feats of data

@@ -47,10 +47,12 @@ for (zone in c("center","mouth")) {
 
 
 ## ---- mouth, original ----
+y_min = 0
+y_max = 0.2
 
 zone = "mouth"
 agg_dt = ""
-title = paste0("Prediction error, ",paste0(zone,paste0(" ",agg_dt)))
+title = paste0(paste0("Prediction error, ",paste0(zone,paste0(" ",agg_dt))),"zone")
 title_file_en = paste0("en_",paste0(zone,agg_dt))
 title_file_rn = paste0("rn_",paste0(zone,agg_dt))
 
@@ -121,6 +123,7 @@ pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -129,7 +132,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -162,6 +165,7 @@ pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -170,7 +174,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -193,13 +197,13 @@ if(save_res){
 
 ## ---- mouth, diff 1 ----
 
-title = paste0("Prediction error, mouth, one differentiation")
+title = paste0("Prediction error, mouth zone, one differentiation")
 zone = "mouth"
 agg_dt = "_diff_1"
 
 title_file_en = paste0("en_",paste0(zone,agg_dt))
 title_file_rn = paste0("rn_",paste0(zone,agg_dt))
-
+y_max = 0.05
 
 en_ppc = err_PPC_mouth_diff_1$en
 rn_ppc = err_PPC_mouth_diff_1$rn
@@ -261,11 +265,12 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, one differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, mouth zone, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -274,7 +279,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -302,11 +307,12 @@ Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, one differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, mouth zone, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) + 
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -315,7 +321,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -404,11 +410,12 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, two differentiations")
+  geom_boxplot()  + ggtitle("Prediction error, mouth zone, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) + 
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -417,7 +424,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -445,11 +452,12 @@ Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, mouth, two differentiations")
+  geom_boxplot()  + ggtitle("Prediction error, mouth zone, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -458,7 +466,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -485,10 +493,10 @@ if(save_res){
 
 zone = "center"
 agg_dt = ""
-title = paste0("Prediction error, ",paste0(zone,paste0(" ",agg_dt)))
+title = paste0(paste0("Prediction error, ",paste0(zone,paste0(" ",agg_dt))),"zone")
 title_file_en = paste0("en_",paste0(zone,agg_dt))
 title_file_rn = paste0("rn_",paste0(zone,agg_dt))
-
+y_max = 0.2
 
 en_ppc = err_PPC_center$en
 rn_ppc = err_PPC_center$rn
@@ -555,6 +563,7 @@ pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) + 
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -563,7 +572,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -596,6 +605,7 @@ pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -604,7 +614,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -627,12 +637,13 @@ if(save_res){
 
 ## ---- center, diff 1 ----
 
-title = paste0("Prediction error, center, diff 1")
+title = paste0("Prediction error, center zone, diff 1")
 zone = "center"
 agg_dt = "_diff_1"
 
 title_file_en = paste0("en_",paste0(zone,agg_dt))
 title_file_rn = paste0("rn_",paste0(zone,agg_dt))
+y_max = 0.05
 
 
 en_ppc = err_PPC_center_diff_1$en
@@ -695,11 +706,12 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, one differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, center zone, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -708,7 +720,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -736,11 +748,12 @@ Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, one differentiation")
+  geom_boxplot()  + ggtitle("Prediction error, center zone, one differentiation")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -749,7 +762,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -838,11 +851,12 @@ En.box <- En %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, two differentiations")
+  geom_boxplot()  + ggtitle("Prediction error, center zone, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -851,7 +865,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 
@@ -879,11 +893,12 @@ Rn.box <- Rn %>% mutate(method=factor(x=method, levels=method_order))
 
 ##grouped boxplot
 pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) + 
-  geom_boxplot()  + ggtitle("Prediction error, center, two differentiations")
+  geom_boxplot()  + ggtitle("Prediction error, center zone, two differentiations")
 pgplot <- pgplot +
   #scale_y_continuous(limits=c(0,0.1)) +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) + 
   #labs(x="", y=TeX(r'($\frac{1}{N} \; \sum_{j=1}^N (f_{t+1, j}^b - \hat{f}_{t+1,j}^b)^2$)'), fill="Prediction method") +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
@@ -892,7 +907,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + 

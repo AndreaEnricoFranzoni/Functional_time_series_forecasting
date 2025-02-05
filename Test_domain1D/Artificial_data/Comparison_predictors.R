@@ -36,6 +36,9 @@ for (pred_met in prediction_method) {
   
 }
 
+y_min = 0.0
+y_max = 1.3
+
 
 ##----- Gaussian Kernel, norm 0.5-----
 kernel_name = "gau_0_5"
@@ -64,6 +67,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
           theme_bw() + 
           labs(x="", y="En", fill = "") +
+          ylim(y_min,y_max) +
           theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
                 axis.text.x = element_text(size=22),
                 axis.title.x = element_text(size=22),
@@ -71,7 +75,7 @@ pgplot <- pgplot +
                 axis.title.y = element_text(size=22),
                 legend.title = element_text(size=22),
                 legend.text = element_text(size=22),
-                legend.position="bottom",
+                legend.position="none",
                 legend.direction = "horizontal") +
         guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -109,6 +113,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
           theme_bw() + 
           labs(x="", y="Rn", fill = "") +
+          ylim(y_min,y_max) +
           theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
                 axis.text.x = element_text(size=22),
                 axis.title.x = element_text(size=22),
@@ -116,7 +121,7 @@ pgplot <- pgplot +
                 axis.title.y = element_text(size=22),
                 legend.title = element_text(size=22),
                 legend.text = element_text(size=22),
-                legend.position="bottom",
+                legend.position="none",
                 legend.direction = "horizontal") +
         guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -162,6 +167,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -169,7 +175,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -207,6 +213,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -214,7 +221,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -257,6 +264,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -264,7 +272,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -302,6 +310,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -309,7 +318,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -355,6 +364,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -362,7 +372,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -400,6 +410,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -407,7 +418,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -428,7 +439,7 @@ if(save_res){
 
 ##----- Slopint plane t Kernel, norm 0.5-----
 kernel_name = "spt_0_5"
-title_err = "Prediction error, slopint plane t kernel, norm = 0.5"
+title_err = "Prediction error, sloping plane t kernel, norm = 0.5"
 
 
 ## BoxPlot of En
@@ -453,6 +464,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -460,7 +472,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -498,6 +510,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -505,7 +518,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -526,7 +539,7 @@ if(save_res){
 
 ##----- Slopint plane t Kernel, norm 0.8-----
 kernel_name = "spt_0_8"
-title_err = "Prediction error, slopint plane t kernel, norm = 0.8"
+title_err = "Prediction error, sloping plane t kernel, norm = 0.8"
 
 
 ## BoxPlot of En
@@ -551,6 +564,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -558,7 +572,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -596,6 +610,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -603,7 +618,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -624,7 +639,7 @@ if(save_res){
 
 ##----- Sloping plane s Kernel, norm 0.5-----
 kernel_name = "sps_0_5"
-title_err = "Prediction error, slopint plane s kernel, norm = 0.5"
+title_err = "Prediction error, sloping plane s kernel, norm = 0.5"
 
 
 ## BoxPlot of En
@@ -649,6 +664,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -656,7 +672,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -694,6 +710,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -701,7 +718,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -720,9 +737,9 @@ if(save_res){
 
 
 
-##----- Sloping plane s Kernel, norm 0.5-----
+##----- Sloping plane s Kernel, norm 0.8-----
 kernel_name = "sps_0_8"
-title_err = "Prediction error, slopint plane s kernel, norm = 0.8"
+title_err = "Prediction error, sloping plane s kernel, norm = 0.8"
 
 
 ## BoxPlot of En
@@ -747,6 +764,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -754,7 +772,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -792,6 +810,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -799,7 +818,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")

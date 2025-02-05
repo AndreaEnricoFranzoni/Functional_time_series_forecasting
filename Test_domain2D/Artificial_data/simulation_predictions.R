@@ -1,7 +1,7 @@
 rm(list=ls())
 graphics.off()
 cat("\014")
-set.seed(23032000)
+set.seed(12)
 
 
 
@@ -115,15 +115,15 @@ dim_grid_x2 <- 20
   persp(x=x1.grid, y=x2.grid, z=Xt[[1]], col=color,
         xlab=TeX(""),ylab="",zlab="",zlim=c(minn,maxx),
         ticktype='detailed')
-  title(TeX("$X_{1}$"), outer = FALSE,line=line)
+  title(TeX("$f_{1}$"), outer = FALSE,line=line)
   persp(x=x1.grid, y=x2.grid, z=Xt[[2]], col=color,
         xlab="",ylab="",zlab="",zlim=c(minn,maxx),
         ticktype='detailed')
-  title(TeX("$X_{2}$"), outer = FALSE,line=line)
+  title(TeX("$f_{2}$"), outer = FALSE,line=line)
   persp(x=x1.grid, y=x2.grid, z=Xt[[3]], col=color,
         xlab="",ylab="",zlab="",zlim=c(minn,maxx),
         ticktype='detailed')
-  title(TeX("$X_{3}$"), outer = FALSE,line=line)
+  title(TeX("$f_{3}$"), outer = FALSE,line=line)
 }
 
 
@@ -188,7 +188,7 @@ for (i in 1:tot_iter) {
                          left_extreme_x2 = left_ex_x2,
                          right_extreme_x2 = right_ex_x2,
                          err_ret = 0,
-                         ex_solver = FALSE)
+                         ex_solver = TRUE)
   
   prediction = predictor$`One-step ahead prediction`
   pred_PPC[[i]] = list(Prediction = prediction, Alpha = predictor$Alpha, N_PPCs = predictor$`Number of PPCs retained`, Exp_Pow = predictor$`Explanatory power PPCs` )

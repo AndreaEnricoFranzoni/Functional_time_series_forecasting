@@ -188,7 +188,7 @@ if(save_res){
 
 
 
-
+set.seed(29011999)
 # ----- data generation idenity Kernel norm 0.5 -----
 {
   #feats of data
@@ -245,7 +245,7 @@ if(save_res){
 
 
 
-
+set.seed(23032000)
 # ----- data generation idenity Kernel norm 0.8 -----
 {
   #feats of data

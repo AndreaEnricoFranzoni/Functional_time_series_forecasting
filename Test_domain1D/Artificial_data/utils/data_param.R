@@ -5,7 +5,7 @@
   dim_grid           <- 200                                         #number of discrete evaluations of the functional statistical units
   n                  <- 100                                         #time instants of the functional time series
   burnin             <- 50                                          #burnin iterations for FAR(1)
-  N                  <- n - burnin                                  #instants that will actually be taken into account  
+  N                  <- n - burnin                                  #number of instants that will actually be predicted 
   t.grid             <- seq(left_ex,right_ex, length.out=dim_grid)  #grid for the discrete evaluation of the statistical units
   
 }

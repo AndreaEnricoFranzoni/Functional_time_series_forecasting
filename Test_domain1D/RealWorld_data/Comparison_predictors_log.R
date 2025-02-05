@@ -31,6 +31,9 @@ for (pred_met in prediction_method) {
   load(paste0(path_res_pred,paste0("/",paste0(pred_met,"_log_err.Rdata"))))
 }
 
+#imposing them after visual inspection
+y_min = 0.0
+y_max = 0.35
 
 
 ## ---- offers -----
@@ -78,6 +81,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -85,7 +89,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -143,6 +147,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -150,7 +155,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -211,6 +216,7 @@ pgplot <- ggplot(En.box, aes(x=method, y=err_en, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="En", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -218,7 +224,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")
@@ -276,6 +282,7 @@ pgplot <- ggplot(Rn.box, aes(x=method, y=err_rn, fill=method)) +
 pgplot <- pgplot +
   theme_bw() + 
   labs(x="", y="Rn", fill = "") +
+  ylim(y_min,y_max) +
   theme(plot.title = element_text(face="bold", hjust=0.5, size=22),
         axis.text.x = element_text(size=22),
         axis.title.x = element_text(size=22),
@@ -283,7 +290,7 @@ pgplot <- pgplot +
         axis.title.y = element_text(size=22),
         legend.title = element_text(size=22),
         legend.text = element_text(size=22),
-        legend.position="bottom",
+        legend.position="none",
         legend.direction = "horizontal") +
   guides(fill=guide_legend(nrow=1, byrow=TRUE))
 pgplot + theme(legend.position="none")

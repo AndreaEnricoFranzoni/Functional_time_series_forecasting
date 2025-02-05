@@ -11,7 +11,7 @@ set.seed(23032000)
 #put here the path of the local copy of the directory
 dir_w = "/Users/andreafranzoni/Documents/Politecnico/Magistrale/Tesi/Functional_time_series_forecasting"
 #if you want to save the result 
-save_res = FALSE
+save_res = TRUE
 
 #where to store the results
 dir_stor_res = "/Test_domain1D/Artificial_data/results/results_prediction"
@@ -172,7 +172,7 @@ if(save_res){
 
 
 
-
+set.seed(29011999)
 # ----- data generation Identity Kernel norm 0.5 -----
 {
   #feats of data
@@ -222,7 +222,7 @@ if(save_res){
 
 
 
-
+set.seed(23032000)
 # ----- data generation Identity Kernel norm 0.8 -----
 {
   #feats of data
