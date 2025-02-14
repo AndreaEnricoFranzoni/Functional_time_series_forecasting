@@ -66,7 +66,7 @@ en_NP  = err_NP_log$pred_offer$en
 en_CC  = err_CC_log$pred_offer$en
 
 
-title_err = "Prediction offer log-curve"
+title_err = "Prediction error, log-offer curves"
 N = length(en_PPC)
 
 
@@ -132,7 +132,7 @@ rn_NP  = err_NP_log$pred_offer$rn
 rn_CC  = err_CC_log$pred_offer$rn
 
 
-title_err = "Prediction offer log-curve"
+title_err = "Prediction error, log-offer curves"
 N = length(rn_PPC)
 
 
@@ -201,7 +201,7 @@ en_NP  = err_NP_log$pred_demand$en
 en_CC  = err_CC_log$pred_demand$en
 
 
-title_err = "Prediction demand log-curve"
+title_err = "Prediction error, log-demand curves"
 N = length(en_PPC)
 
 
@@ -267,7 +267,7 @@ rn_NP  = err_NP_log$pred_demand$rn
 rn_CC  = err_CC_log$pred_demand$rn
 
 
-title_err = "Prediction demand log-curve"
+title_err = "Prediction error, log-demand curves"
 N = length(rn_PPC)
 
 
