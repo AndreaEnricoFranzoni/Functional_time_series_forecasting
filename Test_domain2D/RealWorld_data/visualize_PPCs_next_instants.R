@@ -36,8 +36,6 @@ subfolder_res = "/mouth"
 
 results_ko$`Explanatory power PPCs`
 
-results_ko$`Explanatory power PPCs`
-
 z_min_wei = 0
 z_max_wei = 0
 z_min_dir = 0
@@ -125,6 +123,7 @@ for (i in 1:results_ko$`Number of PPCs retained`){
          width = 14,
          height = 10,
          dpi = 300)
+  
   
   dir$Category <- factor(ifelse(is.na(dir$z) | dir$z == 0, "Zero/NaN",
                                 ifelse(dir$z > 0, "Positivo", "Negativo")))
@@ -351,7 +350,7 @@ for (i in 1:results_ko$`Number of PPCs retained`){
          height = 10,
          dpi = 300)
   
-}  
+} 
     
 
 ##-----mouth, diff 1, next instant----
